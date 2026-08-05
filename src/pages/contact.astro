@@ -1,0 +1,213 @@
+---
+import InfoLayout from '../layouts/InfoLayout.astro';
+---
+
+<InfoLayout 
+  title="Contact Us — Y2mate Customer Support" 
+  description="Contact Y2mate technical support or business team. Submit your suggestions, feedback, or DMCA inquiries using our secure email channel."
+>
+  <div class="content-article">
+    <span class="caption-mono section-eyebrow">Support Channel</span>
+    <h1 class="display-lg">Contact Us</h1>
+    
+    <p class="lead-text">
+      Have feedback, technical issues, or questions about conversions? Feel free to reach out to our team. We generally respond to support queries within 24 to 48 hours.
+    </p>
+
+    <div class="divider"></div>
+
+    <div class="contact-grid">
+      <!-- Contact Info Details -->
+      <div class="contact-info">
+        <div class="info-block">
+          <h3>Support Email</h3>
+          <p class="font-mono contact-detail">support@y2mateaudio.com</p>
+          <p class="body-sm text-muted">For help with failed downloads, conversion errors, or browser extensions.</p>
+        </div>
+
+        <div class="info-block">
+          <h3>Legal & DMCA</h3>
+          <p class="font-mono contact-detail">legal@y2mateaudio.com</p>
+          <p class="body-sm text-muted">For intellectual property notices, takedown requests, and licensing discussions.</p>
+        </div>
+
+        <div class="info-block">
+          <h3>Response Times</h3>
+          <p class="body-sm">Our global administration office is located in Singapore. Support is active Monday through Friday, 9:00 AM to 6:00 PM (SGT).</p>
+        </div>
+      </div>
+
+      <!-- Mock Contact Form -->
+      <div class="contact-form-container">
+        <h3>Send Message</h3>
+        <form class="mock-contact-form" onsubmit="event.preventDefault(); alert('Message sent successfully! Our support agents will contact you shortly.');">
+          <div class="form-group">
+            <label for="name">Your Name</label>
+            <input type="text" id="name" placeholder="John Doe" required />
+          </div>
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" placeholder="john@example.com" required />
+          </div>
+          <div class="form-group">
+            <label for="subject">Subject</label>
+            <input type="text" id="subject" placeholder="How can we help you?" required />
+          </div>
+          <div class="form-group">
+            <label for="message">Message</label>
+            <textarea id="message" rows="5" placeholder="Enter your detailed inquiry here..." required></textarea>
+          </div>
+          <button type="submit" class="submit-btn">Send Message</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</InfoLayout>
+
+<style>
+  .content-article {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+  }
+  .section-eyebrow {
+    color: var(--violet);
+    margin-bottom: var(--space-xxs);
+  }
+  .display-lg {
+    font-size: 36px;
+    font-weight: 700;
+    line-height: 44px;
+    letter-spacing: -0.02em;
+    color: var(--text-ink);
+    margin-bottom: var(--space-xs);
+  }
+  .lead-text {
+    font-size: 18px;
+    line-height: 28px;
+    color: var(--text-body);
+    font-weight: 500;
+  }
+  .divider {
+    height: 1px;
+    background: var(--hairline);
+    margin: var(--space-md) 0;
+  }
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-3xl);
+    margin-top: var(--space-sm);
+  }
+  .contact-info {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xl);
+  }
+  .info-block {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xxs);
+  }
+  .info-block h3 {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text-ink);
+  }
+  .contact-detail {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--link);
+    margin: 4px 0;
+  }
+  .info-block p {
+    font-size: 14px;
+    line-height: 22px;
+    color: var(--text-body);
+  }
+
+  /* Form Styling */
+  .contact-form-container {
+    background: var(--canvas-soft);
+    border: 1px solid var(--hairline);
+    border-radius: var(--radius-md);
+    padding: var(--space-xl);
+  }
+  .contact-form-container h3 {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text-ink);
+    margin-bottom: var(--space-md);
+  }
+  .mock-contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .form-group label {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-body);
+  }
+  .form-group input,
+  .form-group textarea {
+    font-family: inherit;
+    font-size: 14px;
+    color: var(--text-ink);
+    background: var(--canvas);
+    border: 1px solid var(--hairline-strong);
+    border-radius: var(--radius-sm);
+    padding: var(--space-sm);
+    outline: none;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  }
+  .form-group input:focus,
+  .form-group textarea:focus {
+    border-color: var(--link);
+    box-shadow: 0 0 0 2px var(--link-bg-soft);
+  }
+  .submit-btn {
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--on-primary);
+    background: var(--text-ink);
+    border: none;
+    border-radius: var(--radius-sm);
+    padding: var(--space-sm) var(--space-lg);
+    cursor: pointer;
+    transition: opacity 0.15s ease;
+    align-self: flex-start;
+  }
+  .submit-btn:hover {
+    opacity: 0.9;
+  }
+
+  :global(html.dark) .form-group input,
+  :global(html.dark) .form-group textarea {
+    border-color: var(--hairline);
+  }
+  :global(html.dark) .submit-btn {
+    background: var(--canvas-soft-2);
+    border: 1px solid var(--hairline);
+  }
+  :global(html.dark) .submit-btn:hover {
+    background: var(--hairline);
+  }
+
+  @media (max-width: 768px) {
+    .contact-grid {
+      grid-template-columns: 1fr;
+      gap: var(--space-2xl);
+    }
+    .display-lg {
+      font-size: 28px;
+      line-height: 34px;
+    }
+  }
+</style>

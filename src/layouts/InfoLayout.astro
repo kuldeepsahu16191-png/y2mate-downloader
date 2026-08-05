@@ -1,0 +1,456 @@
+---
+import Layout from './Layout.astro';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { title, description } = Astro.props;
+---
+
+<Layout title={title} description={description}>
+  <div class="downloader-app">
+    <!-- Header Navigation Bar -->
+    <nav class="nav-bar">
+      <div class="nav-container">
+        <div class="nav-left">
+          <a href="/" class="nav-logo">
+            <img src="/favicon-96x96.png" alt="Y2mate Logo" width="24" height="24" />
+            <span class="logo-name">Y2mate</span>
+            <span class="logo-domain-mono">audio.com</span>
+          </a>
+          <div class="nav-links">
+            <a href="/#features" class="nav-link">Features</a>
+            <a href="/#how-it-works" class="nav-link">How it Works</a>
+            <a href="/#history" class="nav-link">History</a>
+            <a href="/#faq" class="nav-link">FAQ</a>
+          </div>
+        </div>
+        <div class="nav-right">
+          <!-- Theme Toggle -->
+          <button class="btn-theme-toggle" id="btn-theme-toggle" aria-label="Toggle Theme">
+            <svg id="theme-icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: none;">
+              <circle cx="12" cy="12" r="5"></circle>
+              <line x1="12" y1="1" x2="12" y2="3"></line>
+              <line x1="12" y1="21" x2="12" y2="23"></line>
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+              <line x1="1" y1="12" x2="3" y2="12"></line>
+              <line x1="21" y1="12" x2="23" y2="12"></line>
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+            </svg>
+            <svg id="theme-icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: block;">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+            </svg>
+          </button>
+          <span class="caption-mono secure-badge">
+            <span class="secure-dot"></span>
+            <span>SECURE</span>
+          </span>
+        </div>
+        <button class="nav-hamburger" id="nav-hamburger" aria-label="Open menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </nav>
+
+    <!-- Mobile Navigation Drawer -->
+    <div class="mobile-drawer" id="mobile-drawer">
+      <div class="drawer-header">
+        <span class="caption-mono">Navigation</span>
+        <button class="drawer-close" id="drawer-close">&times;</button>
+      </div>
+      <div class="drawer-links">
+        <a href="/#features" class="drawer-link">Features</a>
+        <a href="/#how-it-works" class="drawer-link">How it Works</a>
+        <a href="/#history" class="drawer-link">History</a>
+        <a href="/#faq" class="drawer-link">FAQ</a>
+      </div>
+    </div>
+    <div class="drawer-backdrop" id="drawer-backdrop"></div>
+
+    <!-- Main Content wrapper -->
+    <main class="info-content-wrapper">
+      <div class="info-card">
+        <slot />
+      </div>
+    </main>
+
+    <!-- Global Footer -->
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-grid">
+          <div class="footer-col">
+            <span class="caption-mono">Y2mateAudioDownloader</span>
+            <p class="body-sm text-muted">A premium, ad-free alternative for downloading video and audio from YouTube.</p>
+          </div>
+          <div class="footer-col">
+            <span class="caption-mono">Links</span>
+            <a href="/#features">Features</a>
+            <a href="/#how-it-works">How it Works</a>
+            <a href="/#history">Download Dashboard</a>
+            <a href="/#faq">FAQ</a>
+          </div>
+          <div class="footer-col">
+            <span class="caption-mono">Legals</span>
+            <a href="/privacy-policy">Privacy Policy</a>
+            <a href="/terms-conditions">Terms of Service</a>
+            <a href="/about">About Us</a>
+            <a href="/contact">Contact Us</a>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <span class="body-sm text-muted">&copy; 2026 Y2mateAudioDownloader. All rights reserved.</span>
+          <span class="caption-mono font-mono text-muted">y2mateaudio.com</span>
+        </div>
+      </div>
+    </footer>
+  </div>
+</Layout>
+
+<style>
+  /* Header CSS */
+  .downloader-app {
+    width: 100%;
+    overflow-x: hidden;
+  }
+  .nav-bar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--hairline);
+    height: 64px;
+    display: flex;
+    align-items: center;
+  }
+  .nav-container {
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 var(--space-lg);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .nav-left {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xl);
+  }
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+    color: var(--text-ink);
+    font-weight: 600;
+    font-size: 18px;
+    letter-spacing: -0.5px;
+  }
+  .logo-name {
+    font-weight: 600;
+    color: var(--text-ink);
+  }
+  .logo-domain-mono {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--text-muted);
+    background: var(--canvas-soft-2);
+    border: 1px solid var(--hairline);
+    padding: 2px 6px;
+    border-radius: var(--radius-xs);
+    margin-left: 2px;
+  }
+  .nav-links {
+    display: flex;
+    gap: var(--space-xs);
+  }
+  .nav-link {
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--text-body);
+    padding: var(--space-xs) var(--space-sm);
+    border-radius: var(--radius-pill);
+    transition: color 0.15s ease, background-color 0.15s ease;
+  }
+  .nav-link:hover {
+    color: var(--text-ink);
+    background: var(--canvas-soft-2);
+  }
+  .nav-right {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+  }
+  .btn-theme-toggle {
+    color: var(--text-body);
+    padding: var(--space-xs);
+    border-radius: var(--radius-full);
+    border: 1px solid var(--hairline);
+    background: var(--canvas);
+    transition: background 0.15s ease, color 0.15s ease;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+  .btn-theme-toggle:hover {
+    background: var(--canvas-soft-2);
+    color: var(--text-ink);
+  }
+  .secure-badge {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    color: var(--text-muted);
+    border: 1px solid var(--hairline);
+    padding: 4px var(--space-xs);
+    border-radius: var(--radius-sm);
+  }
+  .secure-dot {
+    width: 6px;
+    height: 6px;
+    background-color: var(--success);
+    border-radius: 50%;
+  }
+
+  /* Hamburger & Drawer Mobile */
+  .nav-hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 4px;
+    width: 24px;
+    cursor: pointer;
+  }
+  .nav-hamburger span {
+    display: block;
+    width: 18px;
+    height: 2px;
+    background: var(--text-ink);
+    border-radius: var(--radius-full);
+  }
+  .mobile-drawer {
+    position: fixed;
+    top: 0;
+    right: -280px;
+    width: 280px;
+    height: 100vh;
+    background: var(--canvas);
+    box-shadow: var(--shadow-level-5);
+    z-index: 200;
+    padding: var(--space-lg);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+    transition: right 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .mobile-drawer.active {
+    right: 0;
+  }
+  .drawer-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--hairline);
+    padding-bottom: var(--space-sm);
+  }
+  .drawer-close {
+    font-size: 24px;
+    color: var(--text-body);
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+  .drawer-links {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+  .drawer-link {
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--text-body);
+    padding: var(--space-xs) 0;
+  }
+  .drawer-link:hover {
+    color: var(--text-ink);
+  }
+  .drawer-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(4px);
+    z-index: 199;
+    display: none;
+  }
+  .drawer-backdrop.active {
+    display: block;
+  }
+
+  /* Info Content Layout styles */
+  .info-content-wrapper {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: var(--space-4xl) var(--space-lg);
+    min-height: calc(100vh - 64px - 280px);
+  }
+  .info-card {
+    background: var(--canvas);
+    border: 1px solid var(--hairline);
+    border-radius: var(--radius-lg);
+    padding: var(--space-3xl);
+    box-shadow: var(--shadow-level-2);
+  }
+
+  /* Footer style */
+  .footer {
+    background: var(--canvas);
+    padding: var(--space-3xl) 0 var(--space-lg);
+    border-top: 1px solid var(--hairline);
+  }
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: var(--space-3xl);
+    margin-bottom: var(--space-3xl);
+    border-bottom: 1px solid var(--hairline);
+    padding-bottom: var(--space-2xl);
+  }
+  .footer-col {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+  .footer-col a {
+    font-size: 14px;
+    color: var(--text-body);
+    transition: color 0.15s ease;
+  }
+  .footer-col a:hover {
+    color: var(--text-ink);
+  }
+  .footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+  }
+  .caption-mono {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+  .font-mono {
+    font-family: var(--font-mono);
+  }
+  .body-sm {
+    font-size: 14px;
+    line-height: 20px;
+  }
+  .text-muted {
+    color: var(--text-muted);
+  }
+
+  /* Dark theme overrides */
+  :global(html.dark) .nav-bar {
+    background: rgba(10, 10, 10, 0.8);
+    border-bottom-color: var(--hairline);
+  }
+  :global(html.dark) .logo-domain-mono {
+    color: var(--text-body);
+    background: var(--canvas-soft-2);
+    border-color: var(--hairline);
+  }
+
+  /* Responsive styling */
+  @media (max-width: 768px) {
+    .nav-links {
+      display: none;
+    }
+    .nav-hamburger {
+      display: flex;
+    }
+    .footer-grid {
+      grid-template-columns: 1fr;
+      gap: var(--space-xl);
+    }
+    .info-content-wrapper {
+      padding: var(--space-xl) var(--space-sm);
+    }
+    .info-card {
+      padding: var(--space-xl);
+    }
+  }
+</style>
+
+<script is:inline>
+(function() {
+  function $(id) { return document.getElementById(id); }
+
+  // Theme Toggle Logic
+  const themeBtn = $('btn-theme-toggle');
+  const sunIcon = $('theme-icon-sun');
+  const moonIcon = $('theme-icon-moon');
+
+  function updateThemeUI(theme) {
+    if (theme === 'dark') {
+      if (sunIcon) sunIcon.style.display = 'block';
+      if (moonIcon) moonIcon.style.display = 'none';
+      document.documentElement.classList.add('dark');
+    } else {
+      if (sunIcon) sunIcon.style.display = 'none';
+      if (moonIcon) moonIcon.style.display = 'block';
+      document.documentElement.classList.remove('dark');
+    }
+  }
+
+  const initialTheme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+  updateThemeUI(initialTheme);
+
+  if (themeBtn) {
+    themeBtn.addEventListener('click', function() {
+      const isDark = document.documentElement.classList.contains('dark');
+      const newTheme = isDark ? 'light' : 'dark';
+      localStorage.setItem('y2mate_theme', newTheme);
+      updateThemeUI(newTheme);
+    });
+  }
+
+  // Hamburger Drawer Logic
+  const hamburger = $('nav-hamburger');
+  const closeBtn = $('drawer-close');
+  const drawer = $('mobile-drawer');
+  const backdrop = $('drawer-backdrop');
+
+  if (hamburger && drawer && backdrop) {
+    hamburger.addEventListener('click', function() {
+      drawer.classList.add('active');
+      backdrop.classList.add('active');
+    });
+
+    const closeDrawer = function() {
+      drawer.classList.remove('active');
+      backdrop.classList.remove('active');
+    };
+
+    if (closeBtn) closeBtn.addEventListener('click', closeDrawer);
+    backdrop.addEventListener('click', closeDrawer);
+  }
+})();
+</script>

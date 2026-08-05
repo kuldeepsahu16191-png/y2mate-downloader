@@ -1,0 +1,155 @@
+---
+import InfoLayout from '../layouts/InfoLayout.astro';
+---
+
+<InfoLayout 
+  title="Terms & Conditions — Y2mate User Agreement" 
+  description="Read the Terms and Conditions for Y2mate. Review the guidelines for personal use, copyright policies, and platform liability limits."
+>
+  <div class="content-article">
+    <span class="caption-mono section-eyebrow">User Agreement</span>
+    <h1 class="display-lg">Terms & Conditions</h1>
+    
+    <p class="lead-text">
+      Please read these Terms & Conditions ("Terms", "Agreement") carefully before using the Y2mate website and media conversion services.
+    </p>
+
+    <div class="divider"></div>
+
+    <section class="info-section">
+      <h2>1. Acceptance of Terms</h2>
+      <p>
+        By accessing or using Y2mate, you agree to be bound by these Terms and all applicable laws and regulations. If you do not agree with any of these Terms, you are prohibited from using or accessing this site. The materials contained on this website are protected by applicable copyright and trademark laws.
+      </p>
+    </section>
+
+    <section class="info-section">
+      <h2>2. Permitted Use License</h2>
+      <p>
+        Y2mate grants you a temporary, personal, non-exclusive, non-transferable license to access our web application. Under this license, you may:
+      </p>
+      <ul>
+        <li>Access the user interface to convert and download media for personal, educational, and non-commercial use.</li>
+        <li>Build personal offline playlists for fair use purposes.</li>
+      </ul>
+      <p>
+        This license shall automatically terminate if you violate any of these restrictions and may be terminated by us at any time.
+      </p>
+    </section>
+
+    <section class="info-section">
+      <h2>3. Intellectual Property & Copyright</h2>
+      <p>
+        We respect the intellectual property rights of others. Y2mate does not host, index, or index-catalog any media files. All conversions are performed dynamically directly from links provided by the user. By using this service:
+      </p>
+      <ul>
+        <li>You warrant that you own, have the necessary licensing rights, or have permission from the copyright owner to download the media.</li>
+        <li>You agree that Y2mate is purely a technical tool provider and is not liable for any copyright infringements resulting from user actions.</li>
+        <li>You agree not to use this tool to download commercial music, movies, or copyrighted content without the explicit consent of the creator or rights holder.</li>
+      </ul>
+    </section>
+
+    <section class="info-section">
+      <h2>4. Prohibited Activities</h2>
+      <p>
+        When using Y2mate, you agree not to:
+      </p>
+      <ul>
+        <li>Use automated scripts, bots, scrapers, or indexers to access or extract data from our platform.</li>
+        <li>Attempt to decompile, reverse engineer, or crack any security mechanisms of our backend server or API.</li>
+        <li>Interfere with or disrupt the normal operation of our web servers, databases, or API streams.</li>
+        <li>Utilize our platform for commercial advertising, file hosting, or redistribution services.</li>
+      </ul>
+    </section>
+
+    <section class="info-section">
+      <h2>5. Disclaimer of Warranties</h2>
+      <p>
+        The services on Y2mate are provided on an "as is" and "as available" basis. Y2mate makes no warranties, expressed or implied, and hereby disclaims and negates all other warranties, including without limitation, implied warranties of merchantability, fitness for a particular purpose, or non-infringement of intellectual property.
+      </p>
+      <p>
+        Further, we do not warrant that our platform will be uninterrupted, error-free, or compatible with all web browsers and operating systems, or that downloaded media streams will always succeed.
+      </p>
+    </section>
+
+    <section class="info-section">
+      <h2>6. Limitation of Liability</h2>
+      <p>
+        In no event shall Y2mate, its administrators, developers, or affiliates be liable for any damages (including, without limitation, damages for loss of data, loss of profit, or due to business interruption) arising out of the use or inability to use the media conversion tool, even if Y2mate has been notified of the possibility of such damage.
+      </p>
+    </section>
+
+    <section class="info-section">
+      <h2>7. Revisions and Errors</h2>
+      <p>
+        The materials appearing on Y2mate could include technical, typographical, or photographic errors. Y2mate does not warrant that any of the materials on its website are accurate, complete, or current. We may make changes to the materials contained on the website at any time without notice.
+      </p>
+      <p class="body-sm text-muted font-mono">Last updated: August 4, 2026</p>
+    </section>
+  </div>
+</InfoLayout>
+
+<style>
+  .content-article {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+  }
+  .section-eyebrow {
+    color: var(--violet);
+    margin-bottom: var(--space-xxs);
+  }
+  .display-lg {
+    font-size: 36px;
+    font-weight: 700;
+    line-height: 44px;
+    letter-spacing: -0.02em;
+    color: var(--text-ink);
+    margin-bottom: var(--space-xs);
+  }
+  .lead-text {
+    font-size: 18px;
+    line-height: 28px;
+    color: var(--text-body);
+    font-weight: 500;
+  }
+  .divider {
+    height: 1px;
+    background: var(--hairline);
+    margin: var(--space-md) 0;
+  }
+  .info-section {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+  .info-section h2 {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--text-ink);
+    margin-bottom: var(--space-xxs);
+  }
+  .info-section p {
+    font-size: 15px;
+    line-height: 24px;
+    color: var(--text-body);
+  }
+  .info-section ul {
+    margin-left: var(--space-lg);
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .info-section li {
+    font-size: 14px;
+    line-height: 22px;
+    color: var(--text-body);
+  }
+
+  @media (max-width: 768px) {
+    .display-lg {
+      font-size: 28px;
+      line-height: 34px;
+    }
+  }
+</style>

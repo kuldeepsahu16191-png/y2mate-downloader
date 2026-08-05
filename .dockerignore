@@ -1,0 +1,9 @@
+ffmpeg.exe
+ffprobe.exe
+node_modules
+dist
+.astro
+.vscode
+.wrangler
+package-lock.json
+__pycache__

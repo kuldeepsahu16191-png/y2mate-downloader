@@ -1,0 +1,142 @@
+---
+import InfoLayout from '../layouts/InfoLayout.astro';
+---
+
+<InfoLayout 
+  title="About Us — Y2mate YouTube Downloader & MP3 Converter" 
+  description="Learn more about Y2mate, the premier ad-free and secure online YouTube video downloader and high-fidelity MP3/MP4 conversion service."
+>
+  <div class="content-article">
+    <span class="caption-mono section-eyebrow">Company Profile</span>
+    <h1 class="display-lg">About Y2mate</h1>
+    
+    <p class="lead-text">
+      Welcome to Y2mate, the leading provider of premium media conversion and downloading services. Our platform enables users worldwide to convert and download their favorite YouTube videos directly into high-fidelity MP3 audio or MP4 video files, running completely inside their web browser.
+    </p>
+
+    <div class="divider"></div>
+
+    <section class="info-section">
+      <h2>Our Mission</h2>
+      <p>
+        At Y2mate, our mission is to build the fastest, most reliable, and security-first downloader for digital media. We believe that access to educational tutorials, high-definition visual content, and soundtracks should be simple, efficient, and free from invasive marketing tricks.
+      </p>
+      <p>
+        Traditional online video converters are often packed with malicious ads, intrusive pop-ups, and redirection loops. We designed Y2mate to be a premium, completely ad-free alternative. We prioritize user privacy, data security, and responsive performance above all else.
+      </p>
+    </section>
+
+    <section class="info-section">
+      <h2>Core Advantages</h2>
+      <div class="advantage-grid">
+        <div class="advantage-item">
+          <h3>No Registration or Installation</h3>
+          <p>Everything runs natively in your browser. There is no need to register accounts, provide email addresses, or download suspicious extensions or software.</p>
+        </div>
+        <div class="advantage-item">
+          <h3>Sleek & Ad-Free Design</h3>
+          <p>We provide a high-end, uncluttered layout with zero popups or malicious redirects, ensuring a safe downloading experience.</p>
+        </div>
+        <div class="advantage-item">
+          <h3>High Quality Formats</h3>
+          <p>From crystal-clear 320kbps MP3 audio streams to full-resolution 1080p, 1440p, or 4K MP4 videos, our muxing engine delivers premium files.</p>
+        </div>
+        <div class="advantage-item">
+          <h3>Dynamic Stream Scanning</h3>
+          <p>We analyze YouTube media streams dynamically for each request to ensure maximum availability and prevent conversion failures.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="info-section">
+      <h2>How We Operate</h2>
+      <p>
+        Our backend leverages advanced stream extraction pipelines that dynamically scan video formats and separate audio/video chunks directly from source streams. If a user selects a high-definition video format (such as 1080p or 4K) which YouTube stores separately, our system merges (muxes) the streams back together automatically in the background before serving the final high-definition MP4.
+      </p>
+    </section>
+  </div>
+</InfoLayout>
+
+<style>
+  .content-article {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+  }
+  .section-eyebrow {
+    color: var(--violet);
+    margin-bottom: var(--space-xxs);
+  }
+  .display-lg {
+    font-size: 36px;
+    font-weight: 700;
+    line-height: 44px;
+    letter-spacing: -0.02em;
+    color: var(--text-ink);
+    margin-bottom: var(--space-xs);
+  }
+  .lead-text {
+    font-size: 18px;
+    line-height: 28px;
+    color: var(--text-body);
+    font-weight: 500;
+  }
+  .divider {
+    height: 1px;
+    background: var(--hairline);
+    margin: var(--space-md) 0;
+  }
+  .info-section {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+  .info-section h2 {
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--text-ink);
+    letter-spacing: -0.01em;
+    margin-bottom: var(--space-xxs);
+  }
+  .info-section p {
+    font-size: 15px;
+    line-height: 24px;
+    color: var(--text-body);
+  }
+  .advantage-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-lg);
+    margin-top: var(--space-xs);
+  }
+  .advantage-item {
+    background: var(--canvas-soft);
+    border: 1px solid var(--hairline);
+    border-radius: var(--radius-md);
+    padding: var(--space-md);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xxs);
+  }
+  .advantage-item h3 {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-ink);
+  }
+  .advantage-item p {
+    font-size: 13px;
+    line-height: 20px;
+    color: var(--text-muted);
+  }
+
+  @media (max-width: 768px) {
+    .advantage-grid {
+      grid-template-columns: 1fr;
+      gap: var(--space-md);
+    }
+    .display-lg {
+      font-size: 28px;
+      line-height: 34px;
+    }
+  }
+</style>

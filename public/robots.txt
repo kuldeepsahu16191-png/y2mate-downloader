@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://y2mateaudio.com/sitemap.xml

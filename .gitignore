@@ -22,3 +22,15 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+# python local files
+__pycache__/
+*.pyc
+
+# local ffmpeg binaries
+ffmpeg.exe
+ffprobe.exe
+
+# wrangler local files
+.wrangler/
+

@@ -1,23 +1,354 @@
+---
+interface Props {
+	title?: string;
+	description?: string;
+}
+
+const { title = 'Y2mate — Free YouTube Video Downloader & YouTube to MP3 Converter | y2mate.com', description = 'Convert YouTube videos to MP3 and MP4 in high quality with Y2mate. Use y2mate.com, the fastest and safest online y2mate video downloader and mp3 converter.' } = Astro.props;
+---
+
 <!doctype html>
 <html lang="en">
 	<head>
+		<!-- Google tag (gtag.js) -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=G-XTCMFB8QV1"></script>
+		<script is:inline>
+			window.dataLayer = window.dataLayer || [];
+			function gtag(){dataLayer.push(arguments);}
+			gtag('js', new Date());
+
+			gtag('config', 'G-XTCMFB8QV1');
+		</script>
 		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
+		<link rel="shortcut icon" href="/favicon.ico" />
+		<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+		<meta name="apple-mobile-web-app-title" content="Y2mate" />
+		<link rel="manifest" href="/site.webmanifest" />
+		<meta name="description" content={description} />
+		<meta name="keywords" content="y2mate, y2mate com, y2mate video downloader, y2mate mp3 download, y2mate video download, y2mate download, y2mate safe, y2mate downloader, y2mate.com, y2mate mp3, y2mate youtube downloader, y2mate mp3 player downloader, y2mate mp4, y2mate converter, youtube to mp3 converter, youtube to mp4 converter, youtube to mp3 y2mate, youtube to mp4 y2mate" />
+		<link rel="canonical" href="https://y2mateaudio.com/" />
 		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
+
+		<!-- Open Graph / Facebook -->
+		<meta property="og:type" content="website" />
+		<meta property="og:url" content="https://y2mateaudio.com/" />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:image" content="https://y2mateaudio.com/web-app-manifest-512x512.png" />
+		<meta property="og:site_name" content="Y2mate" />
+
+		<!-- Twitter -->
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:url" content="https://y2mateaudio.com/" />
+		<meta name="twitter:title" content={title} />
+		<meta name="twitter:description" content={description} />
+		<meta name="twitter:image" content="https://y2mateaudio.com/web-app-manifest-512x512.png" />
+
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+		<title>{title}</title>
+		<script src="/y2mate_translations.js" is:inline></script>
+		<script src="https://unpkg.com/@dotlottie/player-component@2.7.12/dist/dotlottie-player.mjs" type="module" is:inline></script>
+		
+		<!-- FAQ Page Schema (JSON-LD) -->
+		<script type="application/ld+json" is:inline>
+		{
+			"@context": "https://schema.org",
+			"@type": "FAQPage",
+			"mainEntity": [
+				{
+					"@type": "Question",
+					"name": "Is there any limit to the number of downloads?",
+					"acceptedAnswer": {
+						"@type": "Answer",
+						"text": "No, Y2mateAudioDownloader offers unlimited downloading and conversions completely free of charge."
+					}
+				},
+				{
+					"@type": "Question",
+					"name": "Where are downloaded files saved?",
+					"acceptedAnswer": {
+						"@type": "Answer",
+						"text": "Downloaded files are saved in your device's default \"Downloads\" folder or the path selected in your browser settings."
+					}
+				},
+				{
+					"@type": "Question",
+					"name": "Do I need to register an account?",
+					"acceptedAnswer": {
+						"@type": "Answer",
+						"text": "No registration, login, or software installation is required. Everything runs directly inside your web browser."
+					}
+				},
+				{
+					"@type": "Question",
+					"name": "Are high resolution downloads supported?",
+					"acceptedAnswer": {
+						"@type": "Answer",
+						"text": "Yes. If the source video supports 1080p, 1440p, or 4K resolutions, our downloader will fetch and package the file in full resolution."
+					}
+				},
+				{
+					"@type": "Question",
+					"name": "How to download YouTube videos using Y2mate?",
+					"acceptedAnswer": {
+						"@type": "Answer",
+						"text": "Downloading YouTube videos with Y2mate is fast and simple. First, copy the YouTube video link from your browser or app. Paste the link into the search input box at the top of Y2mate. Select your desired output quality (such as 1080p, 720p, or 320kbps MP3) and format, then click the download button. The conversion starts immediately, and you can save the file directly to your device."
+					}
+				},
+				{
+					"@type": "Question",
+					"name": "Is Y2mate safe and legit to use?",
+					"acceptedAnswer": {
+						"@type": "Answer",
+						"text": "Yes, Y2mate is safe, legitimate, and secure when accessed through clean, ad-free versions like ours. Many user discussions on platforms like Reddit highlight that the main risk of traditional online video converters comes from malicious advertisements and redirects. Our Y2mate platform is 100% ad-free, runs directly in your browser without requiring any software installation, registration, or unsafe browser extensions, ensuring your device remains completely protected."
+					}
+				},
+				{
+					"@type": "Question",
+					"name": "Is using Y2mate legal?",
+					"acceptedAnswer": {
+						"@type": "Answer",
+						"text": "Using Y2mate to download and convert public YouTube videos for personal offline use, fair use, or educational purposes is generally considered safe and standard. However, downloading copyrighted music or video content without the creator's permission may violate the platform's terms of service. We recommend downloading videos that you own or have permission to use."
+					}
+				},
+				{
+					"@type": "Question",
+					"name": "Are there Y2mate MP3 download apps for Android?",
+					"acceptedAnswer": {
+						"@type": "Answer",
+						"text": "You do not need to download or install a separate Y2mate app to convert YouTube videos on mobile. Y2mate is fully responsive and optimized for mobile browsers. You can perform high-speed MP3 and MP4 downloads directly through Chrome, Firefox, or any other web browser on your Android device with no installation required, keeping your phone safe from malware."
+					}
+				},
+				{
+					"@type": "Question",
+					"name": "What is the Y2mate MP4 Player and is there a free download?",
+					"acceptedAnswer": {
+						"@type": "Answer",
+						"text": "Y2mate is primarily a web-based video downloader and converter rather than a dedicated media player software. You do not need to perform any \"Y2mate MP4 Player free download\" because any video or audio file downloaded from Y2mate is saved in standard formats (such as MP4 and MP3) which can be played instantly on your device's native media player, VLC, or any free default app on Windows, macOS, Android, and iOS."
+					}
+				}
+			]
+		}
+		</script>
+		
+		<script is:inline>
+			(function() {
+				const theme = (() => {
+					if (typeof localStorage !== 'undefined' && localStorage.getItem('y2mate_theme')) {
+						return localStorage.getItem('y2mate_theme');
+					}
+					if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+						return 'dark';
+					}
+					return 'light';
+				})();
+				if (theme === 'dark') {
+					document.documentElement.classList.add('dark');
+				} else {
+					document.documentElement.classList.remove('dark');
+				}
+			})();
+		</script>
 	</head>
 	<body>
 		<slot />
 	</body>
 </html>
 
-<style>
-	html,
-	body {
+<style is:global>
+	:root {
+		/* Colors - Brand & Accent */
+		--ink: #171717;
+		--ink-rgb: 23, 23, 23;
+		--on-primary: #ffffff;
+		--link: #0070f3;
+		--link-deep: #0761d1;
+		--link-bg-soft: #d3e5ff;
+		--success: #0070f3;
+		--error: #ee0000;
+		--error-soft: #f7d4d6;
+		--error-deep: #c50000;
+		--warning: #f5a623;
+		--warning-soft: #ffefcf;
+		--warning-deep: #ab570a;
+		--violet: #7928ca;
+		--violet-soft: #d8ccf1;
+		--violet-deep: #4c2889;
+		--cyan: #50e3c2;
+		--cyan-soft: #aaffec;
+		--cyan-deep: #29bc9b;
+		--highlight-pink: #ff0080;
+		--highlight-magenta: #eb367f;
+
+		/* Gradient Palette */
+		--gradient-develop-start: #007cf0;
+		--gradient-develop-end: #00dfd8;
+		--gradient-preview-start: #7928ca;
+		--gradient-preview-end: #ff0080;
+		--gradient-ship-start: #ff4d4d;
+		--gradient-ship-end: #f9cb28;
+
+		/* Mesh gradient */
+		--mesh-gradient: linear-gradient(135deg, #007cf0 0%, #7928ca 25%, #ff0080 50%, #50e3c2 75%, #f9cb28 100%);
+
+		/* Surface Colors */
+		--canvas: #ffffff;
+		--canvas-soft: #fafafa;
+		--canvas-soft-2: #f5f5f5;
+		--hairline: #ebebeb;
+		--hairline-strong: #a1a1a1;
+
+		/* Text Colors */
+		--text-ink: #171717;
+		--text-body: #4d4d4d;
+		--text-muted: #888888;
+
+		/* Selection */
+		--selection-bg: #171717;
+		--selection-fg: #f2f2f2;
+
+		/* Spacing */
+		--space-xxs: 4px;
+		--space-xs: 8px;
+		--space-sm: 12px;
+		--space-md: 16px;
+		--space-lg: 24px;
+		--space-xl: 32px;
+		--space-2xl: 40px;
+		--space-3xl: 48px;
+		--space-4xl: 64px;
+		--space-5xl: 96px;
+		--space-6xl: 128px;
+		--space-section: 120px;
+
+		/* Border Radius */
+		--radius-none: 0px;
+		--radius-xs: 4px;
+		--radius-sm: 6px;
+		--radius-md: 8px;
+		--radius-lg: 12px;
+		--radius-xl: 16px;
+		--radius-pill-sm: 64px;
+		--radius-pill: 100px;
+		--radius-full: 9999px;
+
+		/* Shadows */
+		--shadow-level-1: inset 0 0 0 1px rgba(0, 0, 0, 0.08);
+		--shadow-level-2: 0px 1px 1px rgba(0, 0, 0, 0.02), 0px 2px 2px rgba(0, 0, 0, 0.04), inset 0 0 0 1px rgba(0, 0, 0, 0.08);
+		--shadow-level-3: 0px 2px 2px rgba(0, 0, 0, 0.04), 0px 8px 8px -8px rgba(0, 0, 0, 0.04), inset 0 0 0 1px rgba(0, 0, 0, 0.08);
+		--shadow-level-4: 0px 2px 2px rgba(0, 0, 0, 0.04), 0px 8px 16px -4px rgba(0, 0, 0, 0.04), inset 0 0 0 1px rgba(0, 0, 0, 0.08);
+		--shadow-level-5: 0px 1px 1px rgba(0, 0, 0, 0.02), 0px 8px 16px -4px rgba(0, 0, 0, 0.04), 0px 24px 32px -8px rgba(0, 0, 0, 0.06), inset 0 0 0 1px rgba(0, 0, 0, 0.08);
+
+		/* Typography */
+		--font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+		--font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, monospace;
+	}
+
+	html.dark {
+		/* Colors - Brand & Accent (reversed for dark mode where applicable) */
+		--ink: #ffffff;
+		--ink-rgb: 255, 255, 255;
+		--on-primary: #0a0a0a;
+
+		/* Surface Colors */
+		--canvas: #0a0a0a;
+		--canvas-soft: #121212;
+		--canvas-soft-2: #1a1a1a;
+		--hairline: #222222;
+		--hairline-strong: #333333;
+
+		/* Text Colors */
+		--text-ink: #f5f5f5;
+		--text-body: #a1a1a1;
+		--text-muted: #666666;
+
+		/* Selection */
+		--selection-bg: #ffffff;
+		--selection-fg: #000000;
+
+		/* Shadows adjusted for dark backdrop (inset light border is used instead of heavy drop shadow) */
+		--shadow-level-1: inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+		--shadow-level-2: 0px 1px 1px rgba(0, 0, 0, 0.2), 0px 2px 2px rgba(0, 0, 0, 0.4), inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+		--shadow-level-3: 0px 2px 2px rgba(0, 0, 0, 0.4), 0px 8px 8px -8px rgba(0, 0, 0, 0.4), inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+		--shadow-level-4: 0px 2px 2px rgba(0, 0, 0, 0.4), 0px 8px 16px -4px rgba(0, 0, 0, 0.4), inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+		--shadow-level-5: 0px 1px 1px rgba(0, 0, 0, 0.2), 0px 8px 16px -4px rgba(0, 0, 0, 0.4), 0px 24px 32px -8px rgba(0, 0, 0, 0.6), inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+	}
+
+	*, *::before, *::after {
+		box-sizing: border-box;
 		margin: 0;
-		width: 100%;
-		height: 100%;
+		padding: 0;
+	}
+
+	html {
+		scroll-behavior: smooth;
+		-webkit-font-smoothing: antialiased;
+		-moz-osx-font-smoothing: grayscale;
+	}
+
+	body {
+		font-family: var(--font-sans);
+		font-size: 16px;
+		line-height: 24px;
+		color: var(--text-ink);
+		background-color: var(--canvas-soft);
+		min-height: 100vh;
+	}
+
+	::selection {
+		background: var(--selection-bg);
+		color: var(--selection-fg);
+	}
+
+	a {
+		color: inherit;
+		text-decoration: none;
+	}
+
+	button {
+		font-family: inherit;
+		cursor: pointer;
+		border: none;
+		background: none;
+		outline: none;
+	}
+
+	.container {
+		max-width: 1200px;
+		margin: 0 auto;
+		padding: 0 var(--space-lg);
+	}
+
+	@media (max-width: 768px) {
+		.container {
+			padding: 0 var(--space-md);
+		}
+	}
+
+	@media (max-width: 480px) {
+		.container {
+			padding: 0 var(--space-sm);
+		}
+	}
+
+	/* Scrollbar customization */
+	::-webkit-scrollbar {
+		width: 8px;
+		height: 8px;
+	}
+	::-webkit-scrollbar-track {
+		background: var(--canvas-soft);
+	}
+	::-webkit-scrollbar-thumb {
+		background: var(--hairline-strong);
+		border-radius: var(--radius-full);
+	}
+	::-webkit-scrollbar-thumb:hover {
+		background: var(--text-muted);
 	}
 </style>

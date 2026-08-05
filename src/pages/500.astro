@@ -1,0 +1,354 @@
+---
+import InfoLayout from '../layouts/InfoLayout.astro';
+---
+
+<InfoLayout 
+  title="500 Internal Server Error — Y2mate" 
+  description="An internal server error occurred on Y2mate. Please reload or try again in a few moments."
+>
+  <div class="error-container">
+    <!-- Server Muxing / Loading Gear SVG Illustration -->
+    <div class="server-illustration">
+      <svg class="server-gears" viewBox="0 0 200 160" width="200" height="160">
+        <!-- Server Stack Rack -->
+        <rect x="35" y="30" width="130" height="100" rx="8" fill="var(--canvas-soft-2)" stroke="var(--hairline-strong)" stroke-width="4" />
+        
+        <!-- Server Blade 1 (Top) -->
+        <rect x="45" y="42" width="110" height="18" rx="3" fill="var(--canvas)" stroke="var(--hairline)" stroke-width="2" />
+        <circle cx="55" cy="51" r="3" class="status-light pulse-blue" fill="#0070f3" />
+        <line x1="70" y1="51" x2="110" y2="51" stroke="var(--hairline)" stroke-width="2" stroke-linecap="round" />
+        <line x1="120" y1="51" x2="145" y2="51" stroke="var(--hairline-strong)" stroke-width="2" stroke-linecap="round" />
+
+        <!-- Server Blade 2 (Middle) -->
+        <rect x="45" y="68" width="110" height="18" rx="3" fill="var(--canvas)" stroke="var(--hairline)" stroke-width="2" />
+        <circle cx="55" cy="77" r="3" class="status-light pulse-red" fill="var(--error)" />
+        <line x1="70" y1="77" x2="100" y2="77" stroke="var(--hairline)" stroke-width="2" stroke-linecap="round" />
+        <line x1="110" y1="77" x2="145" y2="77" stroke="var(--hairline-strong)" stroke-width="2" stroke-linecap="round" />
+
+        <!-- Server Blade 3 (Bottom) -->
+        <rect x="45" y="94" width="110" height="18" rx="3" fill="var(--canvas)" stroke="var(--hairline)" stroke-width="2" />
+        <circle cx="55" cy="103" r="3" class="status-light pulse-yellow" fill="var(--warning)" />
+        <line x1="70" y1="103" x2="120" y2="103" stroke="var(--hairline)" stroke-width="2" stroke-linecap="round" />
+        <line x1="130" y1="103" x2="145" y2="103" stroke="var(--hairline-strong)" stroke-width="2" stroke-linecap="round" />
+
+        <!-- Warning Spark/Indicator -->
+        <g transform="translate(145, 15)">
+          <polygon points="12,2 2,22 22,22" fill="var(--warning)" stroke="var(--canvas)" stroke-width="2" stroke-linejoin="round" class="alert-triangle" />
+          <text x="12" y="18" fill="var(--canvas)" font-family="var(--font-sans)" font-size="12" font-weight="bold" text-anchor="middle">!</text>
+        </g>
+        
+        <!-- Cogwheels / Muxing Gears -->
+        <!-- Big Gear -->
+        <g class="cog cog-large" transform="translate(75, 77)">
+          <circle cx="0" cy="0" r="16" fill="none" stroke="var(--text-muted)" stroke-width="6" />
+          <!-- Teeth -->
+          <line x1="0" y1="-21" x2="0" y2="21" stroke="var(--text-muted)" stroke-width="5" stroke-linecap="round" />
+          <line x1="-21" y1="0" x2="21" y2="0" stroke="var(--text-muted)" stroke-width="5" stroke-linecap="round" />
+          <line x1="-15" y1="-15" x2="15" y2="15" stroke="var(--text-muted)" stroke-width="5" stroke-linecap="round" />
+          <line x1="-15" y1="15" x2="15" y2="-15" stroke="var(--text-muted)" stroke-width="5" stroke-linecap="round" />
+          <circle cx="0" cy="0" r="8" fill="var(--canvas-soft-2)" />
+        </g>
+
+        <!-- Small Gear -->
+        <g class="cog cog-small" transform="translate(112, 77)">
+          <circle cx="0" cy="0" r="10" fill="none" stroke="var(--hairline-strong)" stroke-width="4" />
+          <!-- Teeth -->
+          <line x1="0" y1="-14" x2="0" y2="14" stroke="var(--hairline-strong)" stroke-width="3" stroke-linecap="round" />
+          <line x1="-14" y1="0" x2="14" y2="0" stroke="var(--hairline-strong)" stroke-width="3" stroke-linecap="round" />
+          <line x1="-10" y1="-10" x2="10" y2="10" stroke="var(--hairline-strong)" stroke-width="3" stroke-linecap="round" />
+          <line x1="-10" y1="10" x2="10" y2="-10" stroke="var(--hairline-strong)" stroke-width="3" stroke-linecap="round" />
+          <circle cx="0" cy="0" r="5" fill="var(--canvas-soft-2)" />
+        </g>
+      </svg>
+    </div>
+
+    <!-- Text Header -->
+    <h1 class="display-lg">Server Muxing Failed</h1>
+    <p class="error-msg">
+      Our conversion engine encountered an unexpected error. This usually happens when the backend stream parser takes too long to fetch the media chunks from YouTube, or our servers are under heavy load.
+    </p>
+
+    <!-- Action Row -->
+    <div class="action-row">
+      <button id="btn-retry" class="btn-primary">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"></path>
+        </svg>
+        <span>Retry Connection</span>
+      </button>
+      <a href="/" class="btn-secondary">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+          <polyline points="9 22 9 12 15 12 15 22"></polyline>
+        </svg>
+        <span>Return Home</span>
+      </a>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- Additional info -->
+    <div class="help-section">
+      <span class="caption-mono section-label">Status Details</span>
+      <div class="status-card">
+        <div class="status-row">
+          <span class="status-name">Media API Server:</span>
+          <span class="status-value warning">High Load / Timeout</span>
+        </div>
+        <div class="status-row">
+          <span class="status-name">FFmpeg Muxer:</span>
+          <span class="status-value success">Operational</span>
+        </div>
+        <div class="status-row">
+          <span class="status-name">Error Code:</span>
+          <span class="status-value code font-mono">500_INTERNAL_SERVER_ERROR</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</InfoLayout>
+
+<style>
+  .error-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: var(--space-xl);
+    padding: var(--space-md) 0;
+  }
+
+  .server-illustration {
+    filter: drop-shadow(0 8px 12px rgba(0,0,0,0.08));
+  }
+
+  /* Gear Rotations */
+  .cog {
+    transform-origin: center;
+  }
+  .cog-large {
+    animation: spinClockwise 12s linear infinite;
+  }
+  .cog-small {
+    animation: spinCounterClockwise 8s linear infinite;
+  }
+
+  @keyframes spinClockwise {
+    0% { transform: translate(75px, 77px) rotate(0deg); }
+    100% { transform: translate(75px, 77px) rotate(360deg); }
+  }
+
+  @keyframes spinCounterClockwise {
+    0% { transform: translate(112px, 77px) rotate(0deg); }
+    100% { transform: translate(112px, 77px) rotate(-360deg); }
+  }
+
+  /* Warning light pulses */
+  .status-light {
+    animation: pulse 1.5s ease-in-out infinite;
+  }
+  .pulse-blue {
+    animation-delay: 0s;
+  }
+  .pulse-red {
+    animation-delay: 0.5s;
+    animation-name: pulse-red-key;
+  }
+  .pulse-yellow {
+    animation-delay: 1s;
+    animation-name: pulse-yellow-key;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 0.4; }
+    50% { opacity: 1; }
+  }
+  @keyframes pulse-red-key {
+    0%, 100% { fill: #900; }
+    50% { fill: var(--error); opacity: 1; }
+  }
+  @keyframes pulse-yellow-key {
+    0%, 100% { fill: #a70; }
+    50% { fill: var(--warning); opacity: 1; }
+  }
+
+  /* Alert Triangle Bounce */
+  .alert-triangle {
+    animation: alertBounce 2s ease-in-out infinite;
+  }
+  @keyframes alertBounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-4px); }
+  }
+
+  .display-lg {
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 40px;
+    letter-spacing: -0.02em;
+    color: var(--text-ink);
+  }
+
+  .error-msg {
+    font-size: 15px;
+    line-height: 24px;
+    color: var(--text-body);
+    max-width: 580px;
+  }
+
+  /* Actions Row */
+  .action-row {
+    display: flex;
+    gap: var(--space-md);
+    justify-content: center;
+    width: 100%;
+  }
+
+  .btn-primary {
+    background: var(--text-ink);
+    color: var(--canvas);
+    border: 1px solid var(--text-ink);
+    padding: 10px var(--space-xl);
+    border-radius: var(--radius-pill);
+    font-weight: 500;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+
+  .btn-primary:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+  }
+
+  .btn-secondary {
+    background: var(--canvas);
+    color: var(--text-body);
+    border: 1px solid var(--hairline-strong);
+    padding: 10px var(--space-xl);
+    border-radius: var(--radius-pill);
+    font-weight: 500;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+    transition: all 0.15s ease;
+  }
+
+  .btn-secondary:hover {
+    background: var(--canvas-soft-2);
+    color: var(--text-ink);
+    border-color: var(--text-ink);
+    transform: translateY(-1px);
+  }
+
+  .divider {
+    height: 1px;
+    background: var(--hairline);
+    width: 100%;
+    margin: var(--space-md) 0;
+  }
+
+  /* Status details panel */
+  .help-section {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+    width: 100%;
+  }
+
+  .section-label {
+    text-align: left;
+    color: var(--text-muted);
+    font-size: 11px;
+  }
+
+  .status-card {
+    background: var(--canvas-soft);
+    border: 1px solid var(--hairline);
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+    text-align: left;
+    box-shadow: var(--shadow-level-1);
+  }
+
+  .status-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    border-bottom: 1px solid var(--hairline);
+    padding-bottom: var(--space-xs);
+  }
+
+  .status-row:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+
+  .status-name {
+    font-weight: 500;
+    color: var(--text-body);
+  }
+
+  .status-value {
+    font-weight: 600;
+  }
+  .status-value.success {
+    color: var(--success);
+  }
+  .status-value.warning {
+    color: var(--warning-deep);
+  }
+  .status-value.code {
+    background: var(--canvas-soft-2);
+    border: 1px solid var(--hairline);
+    padding: 2px 6px;
+    border-radius: var(--radius-xs);
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+
+  /* Dark mode adaptations */
+  :global(html.dark) .btn-primary {
+    background: #ffffff;
+    color: #0a0a0a;
+    border-color: #ffffff;
+  }
+
+  :global(html.dark) .btn-primary:hover {
+    background: #e5e5e5;
+  }
+
+  :global(html.dark) .status-value.warning {
+    color: var(--warning);
+  }
+
+  @media (max-width: 600px) {
+    .action-row {
+      flex-direction: column;
+      align-items: stretch;
+    }
+    
+    .btn-primary, .btn-secondary {
+      justify-content: center;
+    }
+  }
+</style>
+
+<script is:inline>
+(function() {
+  const retryBtn = document.getElementById('btn-retry');
+  if (retryBtn) {
+    retryBtn.addEventListener('click', function() {
+      // Reload current page
+      window.location.reload();
+    });
+  }
+})();
+</script>

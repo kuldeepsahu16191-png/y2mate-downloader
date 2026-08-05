@@ -1,210 +1,2757 @@
 ---
-import astroLogo from '../assets/astro.svg';
-import background from '../assets/background.svg';
+// YouTube & Audio Downloader Component
 ---
 
-<div id="container">
-	<img id="background" src={background.src} alt="" fetchpriority="high" />
-	<main>
-		<section id="hero">
-			<a href="https://astro.build"
-				><img src={astroLogo.src} width="115" height="48" alt="Astro Homepage" /></a
-			>
-			<h1>
-				To get started, open the <code><pre>src/pages</pre></code> directory in your project.
-			</h1>
-			<section id="links">
-				<a class="button" href="https://docs.astro.build">Read our docs</a>
-				<a href="https://astro.build/chat"
-					>Join our Discord <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 127.14 96.36"
-						><path
-							fill="currentColor"
-							d="M107.7 8.07A105.15 105.15 0 0 0 81.47 0a72.06 72.06 0 0 0-3.36 6.83 97.68 97.68 0 0 0-29.11 0A72.37 72.37 0 0 0 45.64 0a105.89 105.89 0 0 0-26.25 8.09C2.79 32.65-1.71 56.6.54 80.21a105.73 105.73 0 0 0 32.17 16.15 77.7 77.7 0 0 0 6.89-11.11 68.42 68.42 0 0 1-10.85-5.18c.91-.66 1.8-1.34 2.66-2a75.57 75.57 0 0 0 64.32 0c.87.71 1.76 1.39 2.66 2a68.68 68.68 0 0 1-10.87 5.19 77 77 0 0 0 6.89 11.1 105.25 105.25 0 0 0 32.19-16.14c2.64-27.38-4.51-51.11-18.9-72.15ZM42.45 65.69C36.18 65.69 31 60 31 53s5-12.74 11.43-12.74S54 46 53.89 53s-5.05 12.69-11.44 12.69Zm42.24 0C78.41 65.69 73.25 60 73.25 53s5-12.74 11.44-12.74S96.23 46 96.12 53s-5.04 12.69-11.43 12.69Z"
-						></path></svg
-					>
-				</a>
-			</section>
-		</section>
-	</main>
+<div class="downloader-app">
 
-	<a href="https://astro.build/blog/astro-6-beta/" id="news" class="box">
-		<svg width="32" height="32" fill="none" xmlns="http://www.w3.org/2000/svg"
-			><path
-				d="M24.667 12c1.333 1.414 2 3.192 2 5.334 0 4.62-4.934 5.7-7.334 12C18.444 28.567 18 27.456 18 26c0-4.642 6.667-7.053 6.667-14Zm-5.334-5.333c1.6 1.65 2.4 3.43 2.4 5.333 0 6.602-8.06 7.59-6.4 17.334C13.111 27.787 12 25.564 12 22.666c0-4.434 7.333-8 7.333-16Zm-6-5.333C15.111 3.555 16 5.556 16 7.333c0 8.333-11.333 10.962-5.333 22-3.488-.774-6-4-6-8 0-8.667 8.666-10 8.666-20Z"
-				fill="#111827"></path></svg
-		>
-		<h2>What's New in Astro 6.0?</h2>
-		<p>
-			Redesigned dev server, fonts, live collections, built-in CSP support, and more! Click to
-			explore Astro 6.0's new features.
-		</p>
-	</a>
+
+  <!-- Vercel Navigation Bar -->
+  <nav class="nav-bar">
+    <div class="nav-container">
+      <div class="nav-left">
+        <a href="/" class="nav-logo">
+          <img src="/favicon-96x96.png" alt="Y2mate Logo" width="24" height="24" />
+          <span class="logo-name">Y2mate</span>
+          <span class="logo-domain-mono">audio.com</span>
+        </a>
+        <div class="nav-links">
+          <a href="#features" class="nav-link" data-t="nav_features">Features</a>
+          <a href="#how-it-works" class="nav-link" data-t="nav_how">How it Works</a>
+          <a href="#history" class="nav-link" data-t="nav_history">History</a>
+          <a href="#faq" class="nav-link" data-t="nav_faq">FAQ</a>
+        </div>
+      </div>
+      <div class="nav-right">
+        <!-- Language Dropdown -->
+        <div class="btn-lang-selector-container">
+          <button class="btn-lang-toggle" id="btn-lang-toggle" aria-label="Select Language">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="2" y1="12" x2="22" y2="12"></line>
+              <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+            </svg>
+            <span id="current-lang-code" style="font-size: 11px; font-weight: 600; text-transform: uppercase;">EN</span>
+          </button>
+          <div class="lang-dropdown hidden" id="lang-dropdown">
+            <button data-lang="hi">हिन्दी</button>
+            <button data-lang="en" class="active">English</button>
+            <button data-lang="ta">தமிழ்</button>
+            <button data-lang="te">తెలుగు</button>
+            <button data-lang="ml">മലയാളം</button>
+            <button data-lang="es">Español</button>
+            <button data-lang="fr">Français</button>
+            <button data-lang="de">Deutsch</button>
+            <button data-lang="it">Italiano</button>
+            <button data-lang="pt">Português</button>
+            <button data-lang="ru">Русский</button>
+            <button data-lang="id">Bahasa Indonesia</button>
+            <button data-lang="ja">日本語</button>
+            <button data-lang="zh">简体中文</button>
+          </div>
+        </div>
+
+        <button class="btn-sound-toggle" id="btn-sound-toggle" aria-label="Toggle Sound">
+          <svg id="sound-icon-on" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: block;">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+            <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+          </svg>
+          <svg id="sound-icon-off" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: none;">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+            <line x1="23" y1="9" x2="17" y2="15"></line>
+            <line x1="17" y1="9" x2="23" y2="15"></line>
+          </svg>
+        </button>
+        <button class="btn-theme-toggle" id="btn-theme-toggle" aria-label="Toggle Theme">
+          <svg id="theme-icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: none;">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          </svg>
+          <svg id="theme-icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: block;">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
+        </button>
+        <span class="caption-mono secure-badge">
+          <span class="secure-dot"></span>
+          <span data-t="nav_secure">SECURE</span>
+        </span>
+      </div>
+      <button class="nav-hamburger" id="nav-hamburger" aria-label="Open menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile Side Drawer Navigation -->
+  <div class="mobile-drawer" id="mobile-drawer">
+    <div class="drawer-header">
+      <span class="caption-mono" data-t="nav_navigation">Navigation</span>
+      <button class="drawer-close" id="drawer-close">&times;</button>
+    </div>
+    <div class="drawer-links">
+      <a href="#features" class="drawer-link" data-t="nav_features">Features</a>
+      <a href="#how-it-works" class="drawer-link" data-t="nav_how">How it Works</a>
+      <a href="#history" class="drawer-link" data-t="nav_history">History</a>
+      <a href="#faq" class="drawer-link" data-t="nav_faq">FAQ</a>
+    </div>
+  </div>
+  <div class="drawer-backdrop" id="drawer-backdrop"></div>
+
+  <!-- Hero Landing Section -->
+  <section class="hero-band">
+    <div class="mesh-gradient"></div>
+    <div class="hero-content">
+      <span class="caption-mono section-eyebrow" data-t="hero_eyebrow">YouTube to MP3 Converter</span>
+      <h1 class="hero-title" data-t="hero_title">Download videos and audios at the speed of thought.</h1>
+      <p class="hero-body" data-t="hero_body">Convert YouTube videos directly to premium MP3 audio or MP4 video files. Completely ad-free, secure, and running with dynamic format detection.</p>
+      
+      <!-- Interactive Search Box -->
+      <div class="search-container">
+        <div class="search-box">
+          <input 
+            type="text" 
+            id="url-input" 
+            class="search-input" 
+            placeholder="Paste YouTube link or type keywords to search..."
+            data-placeholder-t="search_placeholder"
+            autocomplete="off"
+          />
+          <button id="search-btn" class="search-btn" aria-label="Search or Convert">
+            <span class="btn-text" data-t="search_btn">Search</span>
+            <div class="btn-spinner hidden"></div>
+          </button>
+        </div>
+        <!-- Autocomplete Dropdown List -->
+        <div class="suggestions-dropdown hidden" id="suggestions-dropdown"></div>
+      </div>
+
+      <!-- Loading State -->
+      <div id="loading-state" class="loading-state hidden">
+        <dotlottie-player src="/Lodinganimation/Loading%20animation%20blue.lottie" background="transparent" speed="1" class="loading-video" loop autoplay renderer="svg" style="width: 240px; height: 240px; max-width: 100%;"></dotlottie-player>
+        <p class="caption-mono text-muted" data-t="loading_msg">Analyzing media streams from YouTube...</p>
+      </div>
+
+      <!-- Error State -->
+      <div id="error-state" class="error-state hidden">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="10"></circle>
+          <line x1="12" y1="8" x2="12" y2="12"></line>
+          <line x1="12" y1="16" x2="12.01" y2="16"></line>
+        </svg>
+        <p id="error-message" data-t="error_invalid">Please enter a valid YouTube URL or search query</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- YouTube Search Results Grid Section -->
+  <section id="search-results-section" class="search-results-band hidden">
+    <div class="container">
+      <div class="section-header" style="margin-bottom: var(--space-xl);">
+        <span class="caption-mono">Search Results</span>
+        <h2 class="display-lg" style="font-size: 28px; line-height: 34px;">Select a video to convert</h2>
+      </div>
+      <div class="search-results-grid" id="search-results-grid">
+        <!-- Rendered dynamically by javascript -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive Results & Visual Player Section -->
+  <section id="results-section" class="results-band hidden">
+    <div class="container">
+      <div class="results-grid">
+        
+        <!-- Left Side: Interactive Video Player Mockup -->
+        <div class="video-preview-column">
+          <div class="browser-mockup">
+            <div class="browser-header">
+              <div class="browser-dots">
+                <span class="dot dot-red"></span>
+                <span class="dot dot-yellow"></span>
+                <span class="dot dot-green"></span>
+              </div>
+              <span class="browser-address" id="browser-url-label">youtube.com</span>
+            </div>
+            <div class="video-player-container">
+              <!-- Inline YouTube Iframe Embed -->
+              <iframe 
+                id="preview-iframe" 
+                src="" 
+                title="YouTube Video Preview" 
+                frameborder="0" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                allowfullscreen
+              ></iframe>
+            </div>
+            <div class="video-meta-details">
+              <h3 id="video-title" class="video-title"></h3>
+              <p id="video-channel" class="video-channel"></p>
+              <div class="video-stats-row">
+                <span class="stat-item" id="video-duration">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <polyline points="12 6 12 12 16 14"></polyline>
+                  </svg>
+                  <span id="txt-duration">0:00</span>
+                </span>
+                <span class="stat-item" id="video-views">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                    <circle cx="12" cy="12" r="3"></circle>
+                  </svg>
+                  <span id="txt-views">0 views</span>
+                </span>
+                <span class="stat-item" id="video-likes">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"></path>
+                  </svg>
+                  <span id="txt-likes">0 likes</span>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Side: Format Quality Options & Real-Time Download Box -->
+        <div class="download-options-column">
+          <div class="options-card">
+            <!-- Format Tabs -->
+            <div class="format-tabs">
+              <button class="format-tab active" data-format="video" data-t="tab_video">
+                Video (MP4)
+              </button>
+              <button class="format-tab" data-format="audio" data-t="tab_audio">
+                Audio (MP3)
+              </button>
+            </div>
+
+            <!-- Dynamic Video Quality List -->
+            <div id="video-options" class="quality-list">
+              <!-- Injected by script -->
+            </div>
+
+            <!-- Dynamic Audio Quality List -->
+            <div id="audio-options" class="quality-list hidden">
+              <!-- Injected by script -->
+            </div>
+
+            <!-- Custom Progress Feedback -->
+            <div id="download-progress" class="download-progress hidden">
+              <div class="progress-info-row">
+                <span class="progress-status" id="progress-text">Preparing download...</span>
+                <span class="progress-percentage" id="progress-percent">0%</span>
+              </div>
+              <div class="progress-track">
+                <div class="progress-fill" id="progress-fill"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Download History Section -->
+  <section id="history" class="history-band">
+    <div class="container">
+      <div class="section-header">
+        <span class="caption-mono" data-t="history_caption">Local Dashboard</span>
+        <h2 class="display-lg" data-t="history_title">Your recent downloads.</h2>
+        <p class="section-desc text-muted" data-t="history_desc">All files converted on this device are saved in your local history for quick access.</p>
+      </div>
+
+      <div class="history-card">
+        <div class="history-table-wrapper">
+          <table class="history-table">
+            <thead>
+              <tr>
+                <th class="col-title" data-t="th_video">Video</th>
+                <th class="col-action" data-t="th_action">Action</th>
+                <th class="col-quality" data-t="th_quality">Quality</th>
+                <th class="col-type" data-t="th_format">Format</th>
+                <th class="col-date" data-t="th_date">Date</th>
+              </tr>
+            </thead>
+            <tbody id="history-rows">
+              <tr>
+                <td colspan="5" class="empty-state text-muted" data-t="empty_history">
+                  No files downloaded yet. Search a video to get started.
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Product Features Section -->
+  <section id="features" class="features-band">
+    <div class="container">
+      <div class="section-header">
+        <span class="caption-mono font-mono" data-t="adv_caption">Advantages</span>
+        <h2 class="display-lg" data-t="adv_title">A better downloading experience.</h2>
+      </div>
+      <div class="features-grid">
+        <div class="card-marketing">
+          <div class="feature-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+              <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+            </svg>
+          </div>
+          <h3 class="display-sm" data-t="f1_title">100% Ad-Free & Safe</h3>
+          <p class="body-md" data-t="f1_body">Unlike competitor sites, we have zero redirects, popup advertisements, or deceptive buttons. Your safety is our priority.</p>
+        </div>
+        <div class="card-marketing">
+          <div class="feature-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+            </svg>
+          </div>
+          <h3 class="display-sm" data-t="f2_title">DASH Audio & Video Muxing</h3>
+          <p class="body-md" data-t="f2_body">YouTube separates audio and video streams for 1080p+. Our background engine merges them back together into single MP4s.</p>
+        </div>
+        <div class="card-marketing">
+          <div class="feature-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+              <polyline points="2 17 12 22 22 17"></polyline>
+              <polyline points="2 12 12 17 22 12"></polyline>
+            </svg>
+          </div>
+          <h3 class="display-sm" data-t="f3_title">Dynamic Formats</h3>
+          <p class="body-md" data-t="f3_body">Instead of displaying hardcoded qualities that fail, we scan YouTube formats dynamically for every single video request.</p>
+        </div>
+        <div class="card-marketing">
+          <div class="feature-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
+            </svg>
+          </div>
+          <h3 class="display-sm" data-t="f4_title">Premium MP3 Bitrates</h3>
+          <p class="body-md" data-t="f4_body">Convert video streams into standard high-quality MP3 audio files (up to 320kbps) with seamless browser file-saving.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works Section -->
+  <section id="how-it-works" class="how-it-works-band">
+    <div class="container">
+      <div class="section-header">
+        <span class="caption-mono" data-t="steps_caption">Instructions</span>
+        <h2 class="display-lg" data-t="steps_title">Simple conversion flow.</h2>
+      </div>
+      <div class="steps-row">
+        <div class="step-col">
+          <div class="step-indicator">1</div>
+          <h3 class="display-sm" data-t="step1_title">Search or Paste</h3>
+          <p class="body-sm" data-t="step1_body">Paste a YouTube link directly, or type search terms in the box. Click Search.</p>
+        </div>
+        <div class="step-col">
+          <div class="step-indicator">2</div>
+          <h3 class="display-sm" data-t="step2_title">Select Quality</h3>
+          <p class="body-sm" data-t="step2_body">Preview the video using the embedded browser mockup. Select the audio or video quality format.</p>
+        </div>
+        <div class="step-col">
+          <div class="step-indicator">3</div>
+          <h3 class="display-sm" data-t="step3_title">Download File</h3>
+          <p class="body-sm" data-t="step3_body">Wait for our servers to download and mux the file. Save the download directly to your device.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section id="faq" class="faq-band">
+    <div class="container">
+      <div class="section-header">
+        <span class="caption-mono" data-t="faq_caption">Faq</span>
+        <h2 class="display-lg" data-t="faq_title">Frequently Asked Questions.</h2>
+      </div>
+      <div class="faq-grid">
+        <div class="faq-card">
+          <h3 class="display-sm" data-t="q1">Is there any limit to the number of downloads?</h3>
+          <p class="body-sm text-muted" data-t="a1">No, Y2mateAudioDownloader offers unlimited downloading and conversions completely free of charge.</p>
+        </div>
+        <div class="faq-card">
+          <h3 class="display-sm" data-t="q2">Where are downloaded files saved?</h3>
+          <p class="body-sm text-muted" data-t="a2">Downloaded files are saved in your device's default "Downloads" folder or the path selected in your browser settings.</p>
+        </div>
+        <div class="faq-card">
+          <h3 class="display-sm" data-t="q3">Do I need to register an account?</h3>
+          <p class="body-sm text-muted" data-t="a3">No registration, login, or software installation is required. Everything runs directly inside your web browser.</p>
+        </div>
+        <div class="faq-card">
+          <h3 class="display-sm" data-t="q4">Are high resolution downloads supported?</h3>
+          <p class="body-sm text-muted" data-t="a4">Yes. If the source video supports 1080p, 1440p, or 4K resolutions, our downloader will fetch and package the file in full resolution.</p>
+        </div>
+        <div class="faq-card">
+          <h3 class="display-sm" data-t="q5">How to download YouTube videos using Y2mate?</h3>
+          <p class="body-sm text-muted" data-t="a5">Downloading YouTube videos with Y2mate is fast and simple. First, copy the YouTube video link from your browser or app. Paste the link into the search input box at the top of Y2mate. Select your desired output quality (such as 1080p, 720p, or 320kbps MP3) and format, then click the download button. The conversion starts immediately, and you can save the file directly to your device.</p>
+        </div>
+        <div class="faq-card">
+          <h3 class="display-sm" data-t="q6">Is Y2mate safe and legit to use?</h3>
+          <p class="body-sm text-muted" data-t="a6">Yes, Y2mate is safe, legitimate, and secure when accessed through clean, ad-free versions like ours. Many user discussions on platforms like Reddit highlight that the main risk of traditional online video converters comes from malicious advertisements and redirects. Our Y2mate platform is 100% ad-free, runs directly in your browser without requiring any software installation, registration, or unsafe browser extensions, ensuring your device remains completely protected.</p>
+        </div>
+        <div class="faq-card">
+          <h3 class="display-sm" data-t="q7">Is using Y2mate legal?</h3>
+          <p class="body-sm text-muted" data-t="a7">Using Y2mate to download and convert public YouTube videos for personal offline use, fair use, or educational purposes is generally considered safe and standard. However, downloading copyrighted music or video content without the creator's permission may violate the platform's terms of service. We recommend downloading videos that you own or have permission to use.</p>
+        </div>
+        <div class="faq-card">
+          <h3 class="display-sm" data-t="q8">Are there Y2mate MP3 download apps for Android?</h3>
+          <p class="body-sm text-muted" data-t="a8">You do not need to download or install a separate Y2mate app to convert YouTube videos on mobile. Y2mate is fully responsive and optimized for mobile browsers. You can perform high-speed MP3 and MP4 downloads directly through Chrome, Firefox, or any other web browser on your Android device with no installation required, keeping your phone safe from malware.</p>
+        </div>
+        <div class="faq-card">
+          <h3 class="display-sm" data-t="q9">What is the Y2mate MP4 Player and is there a free download?</h3>
+          <p class="body-sm text-muted" data-t="a9">Y2mate is primarily a web-based video downloader and converter rather than a dedicated media player software. You do not need to perform any "Y2mate MP4 Player free download" because any video or audio file downloaded from Y2mate is saved in standard formats (such as MP4 and MP3) which can be played instantly on your device's native media player, VLC, or any free default app on Windows, macOS, Android, and iOS.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SEO Content Section -->
+  <section class="seo-band">
+    <div class="container">
+      <div class="seo-content-wrapper">
+        <h2>Y2mate: The Ultimate YouTube to MP3 Converter & Video Downloader</h2>
+        
+        <p>
+          In today's digital era, streaming high-definition music and video content has become an integral part of our daily lives. Whether you are building offline playlists for your commute, saving educational tutorials for study sessions, or curating high-quality soundtracks, having a reliable tool is essential. Enter <strong>Y2mate</strong>, the premier online destination for downloading and converting video streams. Our platform operates as a powerful <strong>y2mate video downloader</strong> and high-speed audio extractor, enabling users to seamlessly perform a <strong>y2mate download</strong> of their favorite content from YouTube and other streaming sites without cost or limitations. We are proud to provide a seamless user interface designed to maximize speed, security, and responsive performance across all platforms.
+        </p>
+
+        <h3>Convert YouTube to MP3 in High Quality</h3>
+        <p>
+          One of the standout features of our service is the <strong>youtube to mp3 converter</strong> capability. By utilizing <strong>y2mate mp3 download</strong> options, you can convert video streams into crystal-clear audio files at bitrates of up to 320kbps. Many users search for a dedicated <strong>y2mate youtube downloader</strong> to handle their audio libraries, and our tool answers that need by serving as a robust, modern <strong>y2mate mp3 player downloader</strong>. Here is what makes our converter outstanding:
+        </p>
+        <ul class="seo-list">
+          <li><strong>Premium Audio Quality:</strong> Extract audio files with the best <strong>youtube to mp3 y2mate</strong> converter, offering bitrates like 320kbps, 256kbps, and 128kbps.</li>
+          <li><strong>Universal Compatibility:</strong> Play your extracted tracks on any standard media player, smartphone, or car system.</li>
+          <li><strong>Real-Time Processing:</strong> Save time with our high-speed cloud infrastructure that processes audio conversions instantly.</li>
+        </ul>
+
+        <h3>High-Definition YouTube to MP4 Downloads</h3>
+        <p>
+          Beyond audio conversion, the tool provides stellar video download features. If you are looking to preserve video quality in high definition, our <strong>youtube to mp4 converter</strong> is your best bet. Users can initiate a fast <strong>y2mate video download</strong> by selecting options ranging from 360p to 1080p, 1440p, or even full 4K resolution. The <strong>y2mate mp4</strong> download process dynamically packages the video and audio streams together. When you use the <strong>y2mate converter</strong> for video files, you get a clean file formatted precisely for any device. Using <strong>youtube to mp4 y2mate</strong> keeps your video collections organized and looking sharp, offline and online, with no compression loss. Key advantages include:
+        </p>
+        <ul class="seo-list">
+          <li><strong>Full Resolution Support:</strong> Download your files in standard definition, 720p HD, 1080p Full HD, or ultra-crisp 4K.</li>
+          <li><strong>Dynamic Stream Muxing:</strong> Automatically merge separated audio and video files back into one seamless MP4 file.</li>
+          <li><strong>Direct Browser Saving:</strong> Save the final converted files straight to your device using native browser download links.</li>
+        </ul>
+
+        <h3>Is Y2mate Safe to Use?</h3>
+        <p>
+          A common question among new users is: is <strong>y2mate safe</strong>? Many online converters are plagued with spam, invasive advertisements, redirects, or malicious pop-ups that compromise system security. We built this <strong>y2mate downloader</strong> platform with a security-first mindset. Unlike other portals on the web under the name <strong>y2mate com</strong> or <strong>y2mate.com</strong>, we offer a completely clean, ad-free environment. When you complete a secure <strong>y2mate download</strong> on our portal, you are protected by:
+        </p>
+        <ul class="seo-list">
+          <li><strong>Zero Ads & Redirects:</strong> No annoying popups, deceptive links, or malicious scripts trying to compromise your computer.</li>
+          <li><strong>No Software or Signups:</strong> Convert videos without registering accounts, submitting emails, or installing suspicious extensions.</li>
+          <li><strong>Secure Server Encryptions:</strong> Your connection and downloaded streams are processed securely through cloud servers.</li>
+        </ul>
+
+        <h3>How to Use the Free Y2mate Downloader</h3>
+        <p>
+          Converting and downloading media is incredibly straightforward with our web application. Here is a simple step-by-step guide to get started:
+        </p>
+        <ul class="seo-list">
+          <li><strong>Step 1: Paste or Search:</strong> Open <strong>y2mate.com</strong> or your favorite tool version, and copy the URL of the YouTube video you want to save. Paste it into the search box above, or search for keywords directly in the search bar.</li>
+          <li><strong>Step 2: Choose Format:</strong> Select the output format. Choose <strong>y2mate mp3</strong> for audio extraction, or select MP4 for high-definition video downloads.</li>
+          <li><strong>Step 3: Download & Save:</strong> Click the convert or download button next to your selected bitrate or resolution quality. Within seconds, the files will be ready, and you can download them directly to your desktop or mobile device.</li>
+        </ul>
+        
+        <p>
+          Our service has been optimized for speed and safety, ensuring you can convert and download files quickly without any hassle. We support multiple browsers, operating systems, and screen sizes, making our platform the absolute best tool for all your downloading needs. Enjoy the convenience of a modern, responsive web application designed to put you in control of your entertainment media library.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stark Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <span class="caption-mono" data-t="footer_caption">Y2mateAudioDownloader</span>
+          <p class="body-sm text-muted" data-t="footer_desc">A premium, ad-free alternative for downloading video and audio from YouTube.</p>
+        </div>
+        <div class="footer-col">
+          <span class="caption-mono" data-t="footer_col_links">Links</span>
+          <a href="#features" data-t="nav_features">Features</a>
+          <a href="#how-it-works" data-t="nav_how">How it Works</a>
+          <a href="#history" data-t="nav_history">Download Dashboard</a>
+          <a href="#faq" data-t="nav_faq">FAQ</a>
+        </div>
+        <div class="footer-col">
+          <span class="caption-mono" data-t="footer_col_legals">Legals</span>
+          <a href="/privacy-policy" data-t="footer_privacy">Privacy Policy</a>
+          <a href="/terms-conditions" data-t="footer_terms">Terms of Service</a>
+          <a href="/about" data-t="footer_about">About Us</a>
+          <a href="/contact" data-t="footer_contact">Contact Us</a>
+          <a href="#" data-t="footer_dmca">DMCA Takedowns</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span class="body-sm text-muted" data-t="footer_copyright">&copy; 2026 Y2mateAudioDownloader. All rights reserved.</span>
+        <span class="caption-mono font-mono text-muted">y2mateaudio.com</span>
+      </div>
+    </div>
+  </footer>
 </div>
 
 <style>
-	#background {
-		position: fixed;
-		top: 0;
-		left: 0;
-		width: 100%;
-		height: 100%;
-		z-index: -1;
-		filter: blur(100px);
-	}
+  /* Language Selector CSS */
+  .btn-lang-selector-container {
+    position: relative;
+    display: inline-block;
+  }
+  .btn-lang-toggle {
+    color: var(--text-body);
+    padding: var(--space-xs);
+    border-radius: var(--radius-full);
+    border: 1px solid var(--hairline);
+    background: var(--canvas);
+    transition: background 0.15s ease, color 0.15s ease;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 0 12px;
+    cursor: pointer;
+  }
+  .btn-lang-toggle:hover {
+    background: var(--canvas-soft-2);
+    color: var(--text-ink);
+  }
+  .lang-dropdown {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    background: var(--canvas);
+    border: 1px solid var(--hairline-strong);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-level-4);
+    z-index: 150;
+    display: flex;
+    flex-direction: column;
+    min-width: 160px;
+    padding: 6px 0;
+    max-height: 280px;
+    overflow-y: auto;
+  }
+  .lang-dropdown.hidden {
+    display: none;
+  }
+  .lang-dropdown button {
+    text-align: left;
+    padding: var(--space-xs) var(--space-md);
+    font-size: 13px;
+    color: var(--text-body);
+    width: 100%;
+    transition: background 0.15s, color 0.15s;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+  }
+  .lang-dropdown button:hover {
+    background: var(--canvas-soft-2);
+    color: var(--text-ink);
+  }
+  .lang-dropdown button.active {
+    font-weight: 600;
+    color: var(--text-ink);
+    background: var(--canvas-soft-2);
+  }
 
-	#container {
-		font-family: Inter, Roboto, 'Helvetica Neue', 'Arial Nova', 'Nimbus Sans', Arial, sans-serif;
-		height: 100%;
-	}
+  /* RTL Support - Direction overrides when html[dir="rtl"] is set */
+  :global(html[dir="rtl"]) .lang-dropdown {
+    right: auto;
+    left: 0;
+  }
+  :global(html[dir="rtl"]) .lang-dropdown button {
+    text-align: right;
+  }
+  :global(html[dir="rtl"]) .nav-left {
+    flex-direction: row-reverse;
+  }
+  :global(html[dir="rtl"]) .nav-right {
+    flex-direction: row-reverse;
+  }
+  :global(html[dir="rtl"]) .drawer-links {
+    text-align: right;
+  }
+  :global(html[dir="rtl"]) .steps-row {
+    flex-direction: row-reverse;
+  }
+  :global(html[dir="rtl"]) .faq-card {
+    text-align: right;
+  }
+  :global(html[dir="rtl"]) .footer-grid {
+    direction: rtl;
+  }
 
-	main {
-		height: 100%;
-		display: flex;
-		justify-content: center;
-	}
+  /* Base layout */
+  .downloader-app {
+    width: 100%;
+    overflow-x: hidden;
+  }
 
-	#hero {
-		display: flex;
-		align-items: start;
-		flex-direction: column;
-		justify-content: center;
-		padding: 16px;
-	}
+  /* Banner marketing */
+  .banner {
+    background-color: var(--canvas-soft-2);
+    border-bottom: 1px solid var(--hairline);
+    padding: var(--space-xs) var(--space-lg);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    z-index: 10;
+  }
+  .banner-content {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+  }
+  .banner-text {
+    font-size: 13px;
+    color: var(--text-body);
+  }
+  .banner-text a {
+    color: var(--text-ink);
+    font-weight: 500;
+    text-decoration: underline;
+  }
 
-	h1 {
-		font-size: 22px;
-		margin-top: 0.25em;
-	}
+  /* Nav-bar styling */
+  .nav-bar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--hairline);
+    height: 64px;
+    display: flex;
+    align-items: center;
+  }
+  .nav-container {
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 var(--space-lg);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .nav-left {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xl);
+  }
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+    color: var(--text-ink);
+    font-weight: 600;
+    font-size: 18px;
+    letter-spacing: -0.5px;
+  }
+  .logo-name {
+    font-weight: 600;
+    color: var(--text-ink);
+  }
+  .logo-domain-mono {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--text-muted);
+    background: var(--canvas-soft-2);
+    border: 1px solid var(--hairline);
+    padding: 2px 6px;
+    border-radius: var(--radius-xs);
+    margin-left: 2px;
+  }
+  :global(html.dark) .nav-bar {
+    background: rgba(255, 255, 255, 0.8);
+    border-bottom-color: #ebebeb;
+    
+    /* Reset variables for children to light mode */
+    --text-ink: #171717;
+    --text-body: #4d4d4d;
+    --text-muted: #888888;
+    --canvas: #ffffff;
+    --canvas-soft: #fafafa;
+    --canvas-soft-2: #f5f5f5;
+    --hairline: #ebebeb;
+    --hairline-strong: #a1a1a1;
+  }
+  :global(html.dark) .logo-domain-mono {
+    color: var(--text-body);
+    background: var(--canvas-soft-2);
+    border-color: var(--hairline-strong);
+  }
+  :global(html.dark) .nav-bar .btn-sound-toggle,
+  :global(html.dark) .nav-bar .btn-theme-toggle,
+  :global(html.dark) .nav-bar .btn-lang-toggle {
+    /* Restore dark mode variable values */
+    --text-body: #a1a1a1;
+    --text-ink: #f5f5f5;
+    --canvas: #0a0a0a;
+    --canvas-soft-2: #1a1a1a;
+    --hairline: #222222;
+  }
+  .nav-links {
+    display: flex;
+    gap: var(--space-xs);
+  }
+  .nav-link {
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--text-body);
+    padding: var(--space-xs) var(--space-sm);
+    border-radius: var(--radius-pill);
+    transition: color 0.15s ease, background-color 0.15s ease;
+  }
+  .nav-link:hover {
+    color: var(--text-ink);
+    background: var(--canvas-soft-2);
+  }
+  .nav-right {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+  }
+  .btn-sound-toggle {
+    color: var(--text-body);
+    padding: var(--space-xs);
+    border-radius: var(--radius-full);
+    border: 1px solid var(--hairline);
+    background: var(--canvas);
+    transition: background 0.15s ease, color 0.15s ease;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .btn-sound-toggle:hover {
+    background: var(--canvas-soft-2);
+    color: var(--text-ink);
+  }
+  .btn-theme-toggle {
+    color: var(--text-body);
+    padding: var(--space-xs);
+    border-radius: var(--radius-full);
+    border: 1px solid var(--hairline);
+    background: var(--canvas);
+    transition: background 0.15s ease, color 0.15s ease;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .btn-theme-toggle:hover {
+    background: var(--canvas-soft-2);
+    color: var(--text-ink);
+  }
+  .secure-badge {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    color: var(--text-muted);
+    border: 1px solid var(--hairline);
+    padding: 4px var(--space-xs);
+    border-radius: var(--radius-sm);
+  }
+  .secure-dot {
+    width: 6px;
+    height: 6px;
+    background-color: var(--success);
+    border-radius: 50%;
+  }
 
-	#links {
-		display: flex;
-		gap: 16px;
-	}
+  /* Hamburger & Drawer (Mobile) */
+  .nav-hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 4px;
+    width: 28px;
+    cursor: pointer;
+  }
+  .nav-hamburger span {
+    display: block;
+    width: 18px;
+    height: 2px;
+    background: var(--text-ink);
+    border-radius: var(--radius-full);
+    transition: transform 0.2s;
+  }
+  .mobile-drawer {
+    position: fixed;
+    top: 0;
+    right: -280px;
+    width: 280px;
+    height: 100vh;
+    background: var(--canvas);
+    box-shadow: var(--shadow-level-5);
+    z-index: 200;
+    padding: var(--space-lg);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+    transition: right 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .mobile-drawer.active {
+    right: 0;
+  }
+  .drawer-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--hairline);
+    padding-bottom: var(--space-sm);
+  }
+  .drawer-close {
+    font-size: 24px;
+    color: var(--text-body);
+  }
+  .drawer-links {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+  .drawer-link {
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--text-body);
+    padding: var(--space-xs) 0;
+  }
+  .drawer-link:hover {
+    color: var(--text-ink);
+  }
+  .drawer-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(4px);
+    z-index: 199;
+    display: none;
+  }
+  .drawer-backdrop.active {
+    display: block;
+  }
 
-	#links a {
-		display: flex;
-		align-items: center;
-		padding: 10px 12px;
-		color: #111827;
-		text-decoration: none;
-		transition: color 0.2s;
-	}
+  /* Hero Section style */
+  .hero-band {
+    position: relative;
+    padding: 80px var(--space-lg) 60px;
+    text-align: center;
+    overflow: visible;
+    background: var(--canvas);
+    border-bottom: 1px solid var(--hairline);
+  }
+  .mesh-gradient {
+    position: absolute;
+    top: -250px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 900px;
+    height: 500px;
+    background: var(--mesh-gradient);
+    filter: blur(80px);
+    opacity: 0.25;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .hero-content {
+    position: relative;
+    z-index: 1;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  .section-eyebrow {
+    font-size: 12px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    display: block;
+    margin-bottom: var(--space-md);
+  }
+  .hero-title {
+    font-size: 48px;
+    font-weight: 600;
+    line-height: 48px;
+    letter-spacing: -2.4px;
+    margin-bottom: var(--space-md);
+    color: var(--text-ink);
+  }
+  .hero-body {
+    font-size: 18px;
+    line-height: 28px;
+    color: var(--text-body);
+    margin-bottom: var(--space-2xl);
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
 
-	#links a:hover {
-		color: rgb(78, 80, 86);
-	}
+  /* Search Container & Autocomplete dropdown */
+  .search-container {
+    max-width: 600px;
+    margin: 0 auto;
+    position: relative;
+  }
+  .search-box {
+    display: flex;
+    background: var(--canvas);
+    border: 1px solid var(--hairline-strong);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    box-shadow: var(--shadow-level-2);
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  }
+  .search-box:focus-within {
+    border-color: var(--ink);
+    box-shadow: 0 0 0 3px rgba(0, 112, 243, 0.15);
+  }
+  .search-input {
+    flex: 1;
+    padding: var(--space-md) var(--space-lg);
+    font-size: 15px;
+    border: none;
+    outline: none;
+    background: transparent;
+    color: var(--text-ink);
+  }
+  .search-input::placeholder {
+    color: var(--text-muted);
+  }
+  .search-btn {
+    padding: 0 var(--space-xl);
+    background: var(--ink);
+    color: var(--on-primary);
+    font-weight: 500;
+    transition: background 0.15s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    font-size: 14px;
+    height: 48px;
+  }
+  .search-btn:hover {
+    background: #2d2d2d;
+  }
+  .search-btn:active {
+    background: #000000;
+  }
+  
+  /* Autocomplete Dropdown */
+  .suggestions-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: var(--canvas);
+    border: 1px solid var(--hairline-strong);
+    border-radius: var(--radius-md);
+    margin-top: var(--space-xxs);
+    box-shadow: var(--shadow-level-5);
+    z-index: 50;
+    max-height: 240px;
+    overflow-y: auto;
+    text-align: left;
+  }
+  .suggestion-item {
+    padding: var(--space-sm) var(--space-lg);
+    font-size: 14px;
+    color: var(--text-body);
+    cursor: pointer;
+    transition: background 0.15s ease, color 0.15s ease;
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+  }
+  .suggestion-item:hover, .suggestion-item.active {
+    background: var(--canvas-soft-2);
+    color: var(--text-ink);
+  }
+  .suggestion-item svg {
+    color: var(--text-muted);
+    flex-shrink: 0;
+  }
 
-	#links a svg {
-		height: 1em;
-		margin-left: 8px;
-	}
+  /* Spinner */
+  .spinner {
+    width: 24px;
+    height: 24px;
+    border: 2px solid var(--hairline-strong);
+    border-top-color: var(--ink);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 0 auto;
+  }
+  .loading-video {
+    width: 240px;
+    height: 240px;
+    max-width: 100%;
+    object-fit: contain;
+    margin: 0 auto;
+  }
+  .btn-spinner {
+    width: 16px;
+    height: 16px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-top-color: #fff;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+  }
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
 
-	#links a.button {
-		color: white;
-		background: linear-gradient(83.21deg, #3245ff 0%, #bc52ee 100%);
-		box-shadow:
-			inset 0 0 0 1px rgba(255, 255, 255, 0.12),
-			inset 0 -2px 0 rgba(0, 0, 0, 0.24);
-		border-radius: 10px;
-	}
+  .loading-state {
+    margin-top: var(--space-xl);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+    align-items: center;
+  }
 
-	#links a.button:hover {
-		color: rgb(230, 230, 230);
-		box-shadow: none;
-	}
+  /* Error state styling */
+  .error-state {
+    margin-top: var(--space-lg);
+    padding: var(--space-sm) var(--space-md);
+    background: var(--error-soft);
+    border: 1px solid rgba(238, 0, 0, 0.15);
+    border-radius: var(--radius-md);
+    color: var(--error-deep);
+    font-size: 14px;
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-sm);
+    max-width: 480px;
+    text-align: left;
+    box-shadow: var(--shadow-level-2);
+  }
+  .error-state p {
+    margin: 0;
+  }
 
-	pre {
-		font-family:
-			ui-monospace, 'Cascadia Code', 'Source Code Pro', Menlo, Consolas, 'DejaVu Sans Mono',
-			monospace;
-		font-weight: normal;
-		background: linear-gradient(14deg, #d83333 0%, #f041ff 100%);
-		-webkit-background-clip: text;
-		-webkit-text-fill-color: transparent;
-		background-clip: text;
-		margin: 0;
-	}
+  /* Results Section layout */
+  .results-band {
+    padding: var(--space-3xl) 0;
+    background: var(--canvas-soft);
+    border-bottom: 1px solid var(--hairline);
+  }
+  .results-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: var(--space-3xl);
+    align-items: start;
+  }
 
-	h2 {
-		margin: 0 0 1em;
-		font-weight: normal;
-		color: #111827;
-		font-size: 20px;
-	}
+  /* Browser mockup frame */
+  .browser-mockup {
+    background: var(--canvas);
+    border: 1px solid var(--hairline-strong);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-level-3);
+    overflow: hidden;
+  }
+  .browser-header {
+    background: var(--canvas-soft-2);
+    border-bottom: 1px solid var(--hairline);
+    padding: var(--space-sm) var(--space-md);
+    display: flex;
+    align-items: center;
+    position: relative;
+  }
+  .browser-dots {
+    display: flex;
+    gap: 6px;
+    position: absolute;
+    left: var(--space-md);
+  }
+  .dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+  }
+  .dot-red { background: #ff5f56; }
+  .dot-yellow { background: #ffbd2e; }
+  .dot-green { background: #27c93f; }
+  .browser-address {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--text-muted);
+    margin: 0 auto;
+    background: var(--canvas);
+    padding: 2px 32px;
+    border: 1px solid var(--hairline);
+    border-radius: var(--radius-xs);
+    max-width: 320px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 
-	p {
-		color: #4b5563;
-		font-size: 16px;
-		line-height: 24px;
-		letter-spacing: -0.006em;
-		margin: 0;
-	}
+  .video-player-container {
+    width: 100%;
+    aspect-ratio: 16/9;
+    background: #000;
+  }
+  .video-player-container iframe {
+    width: 100%;
+    height: 100%;
+  }
 
-	code {
-		display: inline-block;
-		background:
-			linear-gradient(66.77deg, #f3cddd 0%, #f5cee7 100%) padding-box,
-			linear-gradient(155deg, #d83333 0%, #f041ff 18%, #f5cee7 45%) border-box;
-		border-radius: 8px;
-		border: 1px solid transparent;
-		padding: 6px 8px;
-	}
+  .video-meta-details {
+    padding: var(--space-lg);
+  }
+  .video-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text-ink);
+    line-height: 1.4;
+    letter-spacing: -0.4px;
+    margin-bottom: var(--space-xs);
+  }
+  .video-channel {
+    font-size: 14px;
+    color: var(--text-body);
+    margin-bottom: var(--space-md);
+  }
+  .video-stats-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-lg);
+    border-top: 1px solid var(--hairline);
+    padding-top: var(--space-sm);
+  }
+  .stat-item {
+    font-size: 12px;
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
 
-	.box {
-		padding: 16px;
-		background: rgba(255, 255, 255, 1);
-		border-radius: 16px;
-		border: 1px solid white;
-	}
+  /* Download tab quality card */
+  .options-card {
+    background: var(--canvas);
+    border: 1px solid var(--hairline-strong);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-level-3);
+    padding: var(--space-lg);
+  }
+  .format-tabs {
+    display: flex;
+    gap: var(--space-xs);
+    border-bottom: 1px solid var(--hairline);
+    padding-bottom: var(--space-sm);
+    margin-bottom: var(--space-lg);
+  }
+  .format-tab {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-body);
+    background: var(--canvas-soft);
+    border: 1px solid var(--hairline);
+    border-radius: var(--radius-pill-sm);
+    padding: var(--space-xs) var(--space-lg);
+    transition: all 0.15s ease;
+  }
+  .format-tab.active {
+    background: var(--ink);
+    color: var(--on-primary);
+    border-color: var(--ink);
+  }
+  .format-tab:hover:not(.active) {
+    background: var(--canvas-soft-2);
+    color: var(--text-ink);
+  }
 
-	#news {
-		position: absolute;
-		bottom: 16px;
-		right: 16px;
-		max-width: 300px;
-		text-decoration: none;
-		transition: background 0.2s;
-		backdrop-filter: blur(50px);
-	}
+  .quality-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+  :global(.quality-option-row) {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--space-md);
+    background: var(--canvas-soft);
+    border: 1px solid var(--hairline);
+    border-radius: var(--radius-md);
+    transition: background-color 0.15s ease, border-color 0.15s ease;
+  }
+  :global(.quality-option-row:hover) {
+    background: var(--canvas-soft-2);
+    border-color: var(--hairline-strong);
+  }
+  :global(.quality-option-info) {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  :global(.quality-option-title) {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-ink);
+  }
+  :global(.quality-option-size) {
+    font-size: 12px;
+    color: var(--text-muted);
+    font-family: var(--font-mono);
+  }
+  :global(.quality-option-badge) {
+    background: var(--link-bg-soft);
+    color: var(--link);
+    font-size: 10px;
+    font-weight: 500;
+    padding: 1px 6px;
+    border-radius: var(--radius-pill-sm);
+    align-self: flex-start;
+    margin-top: 2px;
+  }
+  :global(.btn-download-quality) {
+    font-size: 13px;
+    font-weight: 500;
+    padding: 0 var(--space-md);
+    height: 36px;
+    border-radius: var(--radius-pill);
+    background: var(--canvas);
+    color: var(--text-ink);
+    border: 1px solid var(--hairline-strong);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.15s ease;
+  }
+  :global(.btn-download-quality:hover) {
+    background: var(--ink);
+    color: var(--on-primary);
+    border-color: var(--ink);
+  }
+  :global(.btn-download-quality:disabled) {
+    opacity: 0.5;
+    cursor: not-allowed;
+    background: var(--canvas-soft-2) !important;
+    color: var(--text-body) !important;
+    border-color: var(--hairline) !important;
+  }
 
-	#news:hover {
-		background: rgba(255, 255, 255, 0.55);
-	}
+  /* Progress Bar */
+  .download-progress {
+    margin-top: var(--space-xl);
+    border-top: 1px solid var(--hairline);
+    padding-top: var(--space-lg);
+  }
+  .progress-info-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: var(--space-xs);
+  }
+  .progress-status {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-body);
+  }
+  .progress-percent {
+    font-size: 12px;
+    font-family: var(--font-mono);
+    color: var(--text-muted);
+  }
+  .progress-track {
+    width: 100%;
+    height: 6px;
+    background: var(--canvas-soft-2);
+    border-radius: var(--radius-full);
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    width: 0%;
+    background: var(--ink);
+    border-radius: var(--radius-full);
+    transition: width 0.3s ease;
+  }
 
-	@media screen and (max-height: 368px) {
-		#news {
-			display: none;
-		}
-	}
+  /* History Dashboard Section */
+  .history-band {
+    padding: var(--space-3xl) 0;
+    background: var(--canvas);
+    border-bottom: 1px solid var(--hairline);
+  }
+  .section-header {
+    text-align: center;
+    max-width: 640px;
+    margin: 0 auto var(--space-3xl);
+  }
+  .display-lg {
+    font-size: 32px;
+    font-weight: 600;
+    line-height: 40px;
+    letter-spacing: -1.28px;
+    margin-bottom: var(--space-sm);
+    color: var(--text-ink);
+  }
+  .section-desc {
+    font-size: 16px;
+    color: var(--text-body);
+  }
+  .history-card {
+    background: var(--canvas);
+    border: 1px solid var(--hairline-strong);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-level-2);
+    overflow: hidden;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  .history-table-wrapper {
+    overflow-x: auto;
+  }
+  .history-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+  }
+  .history-table th {
+    background: var(--canvas-soft-2);
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: var(--space-sm) var(--space-md);
+    border-bottom: 1px solid var(--hairline);
+  }
+  .history-table td {
+    padding: var(--space-sm) var(--space-md);
+    border-bottom: 1px solid var(--hairline);
+    font-size: 14px;
+    color: var(--text-body);
+    vertical-align: middle;
+  }
+  .history-table tr:last-child td {
+    border-bottom: none;
+  }
+  .col-title { width: 35%; }
+  .col-action { width: 15%; text-align: center; }
+  .col-quality { width: 15%; }
+  .col-type { width: 15%; }
+  .col-date { width: 20%; }
+  
+  :global(.history-title-cell) {
+    font-weight: 500;
+    color: var(--text-ink);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 320px;
+  }
+  :global(.history-tag) {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    padding: 2px 6px;
+    border-radius: var(--radius-xs);
+    background: var(--canvas-soft-2);
+    border: 1px solid var(--hairline);
+  }
+  :global(.history-tag.video) {
+    color: var(--link);
+    background: var(--link-bg-soft);
+  }
+  :global(.history-tag.audio) {
+    color: var(--violet-deep);
+    background: var(--violet-soft);
+  }
+  :global(.empty-state) {
+    text-align: center;
+    padding: 32px !important;
+  }
+  :global(.btn-history-dl) {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: var(--radius-full);
+    border: 1px solid var(--hairline-strong);
+    color: var(--text-ink);
+    background: var(--canvas);
+    transition: all 0.15s ease;
+  }
+  :global(.btn-history-dl:hover) {
+    background: var(--ink);
+    color: var(--on-primary);
+    border-color: var(--ink);
+  }
+  :global(.btn-history-del) {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: var(--radius-full);
+    border: 1px solid transparent;
+    color: var(--text-muted);
+    background: transparent;
+    transition: all 0.15s ease;
+    margin-left: 6px;
+  }
+  :global(.btn-history-del:hover) {
+    color: var(--error-deep);
+    background: var(--error-soft);
+  }
+  :global(html.dark) :global(.btn-history-del) {
+    color: var(--text-body);
+  }
 
-	@media screen and (max-width: 768px) {
-		#container {
-			display: flex;
-			flex-direction: column;
-		}
+  /* Features band styling */
+  .features-band {
+    padding: var(--space-4xl) 0;
+    background: var(--canvas-soft);
+    border-bottom: 1px solid var(--hairline);
+  }
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-lg);
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  .card-marketing {
+    background: var(--canvas);
+    border: 1px solid var(--hairline-strong);
+    border-radius: var(--radius-md);
+    padding: var(--space-lg);
+    box-shadow: var(--shadow-level-2);
+    transition: box-shadow 0.15s ease, transform 0.15s ease;
+  }
+  .card-marketing:hover {
+    box-shadow: var(--shadow-level-3);
+    transform: translateY(-2px);
+  }
+  .feature-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: var(--radius-md);
+    background: var(--canvas-soft-2);
+    color: var(--text-ink);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: var(--space-sm);
+  }
+  .display-sm {
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: -0.4px;
+    margin-bottom: var(--space-xs);
+    color: var(--text-ink);
+  }
+  .body-md {
+    font-size: 14px;
+    color: var(--text-body);
+    line-height: 1.5;
+  }
 
-		#hero {
-			display: block;
-			padding-top: 10%;
-		}
+  /* How it works band */
+  .how-it-works-band {
+    padding: var(--space-4xl) 0;
+    background: var(--canvas);
+    border-bottom: 1px solid var(--hairline);
+  }
+  .steps-row {
+    display: flex;
+    justify-content: space-between;
+    gap: var(--space-xl);
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  .step-col {
+    flex: 1;
+    text-align: center;
+  }
+  .step-indicator {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--ink);
+    color: var(--on-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 600;
+    margin: 0 auto var(--space-sm);
+  }
 
-		#links {
-			flex-wrap: wrap;
-		}
+  /* FAQ style */
+  .faq-band {
+    padding: var(--space-4xl) 0;
+    background: var(--canvas-soft);
+    border-bottom: 1px solid var(--hairline);
+  }
+  .faq-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-lg);
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  .faq-card {
+    background: var(--canvas);
+    border: 1px solid var(--hairline);
+    border-radius: var(--radius-md);
+    padding: var(--space-lg);
+  }
+  .faq-card p {
+    line-height: 1.6;
+  }
 
-		#links a.button {
-			padding: 14px 18px;
-		}
+  /* SEO content styling */
+  .seo-band {
+    padding: var(--space-4xl) 0;
+    background: var(--canvas);
+    border-bottom: 1px solid var(--hairline);
+  }
+  .seo-content-wrapper {
+    max-width: 800px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+  .seo-content-wrapper h2 {
+    font-size: 28px;
+    font-weight: 600;
+    line-height: 36px;
+    letter-spacing: -1.2px;
+    margin-bottom: var(--space-sm);
+    color: var(--text-ink);
+  }
+  .seo-content-wrapper h3 {
+    font-size: 20px;
+    font-weight: 600;
+    letter-spacing: -0.6px;
+    margin-top: var(--space-md);
+    margin-bottom: var(--space-xs);
+    color: var(--text-ink);
+  }
+  .seo-content-wrapper p {
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--text-body);
+  }
+  .seo-content-wrapper strong {
+    color: var(--text-ink);
+  }
+  .seo-list {
+    margin-left: var(--space-lg);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+    list-style-type: disc;
+    color: var(--text-body);
+    font-size: 15px;
+    line-height: 1.6;
+  }
+  .seo-list li strong {
+    color: var(--text-ink);
+  }
 
-		#news {
-			right: 16px;
-			left: 16px;
-			bottom: 2.5rem;
-			max-width: 100%;
-		}
+  /* Footer style */
+  .footer {
+    background: var(--canvas);
+    padding: var(--space-3xl) 0 var(--space-lg);
+  }
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: var(--space-3xl);
+    margin-bottom: var(--space-3xl);
+    border-bottom: 1px solid var(--hairline);
+    padding-bottom: var(--space-2xl);
+  }
+  .footer-col {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+  .footer-col a {
+    font-size: 14px;
+    color: var(--text-body);
+    transition: color 0.15s ease;
+  }
+  .footer-col a:hover {
+    color: var(--text-ink);
+  }
+  .footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+  }
 
-		h1 {
-			line-height: 1.5;
-		}
-	}
+  /* UTILITY UTILS */
+  .hidden { display: none !important; }
+  .text-muted { color: var(--text-muted) !important; }
+
+  /* Search Results Grid & Cards */
+  .search-results-band {
+    padding: var(--space-xl) 0 var(--space-2xl);
+    background: var(--canvas-soft);
+    border-bottom: 1px solid var(--hairline);
+  }
+  .search-results-grid {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    gap: var(--space-xs);
+    max-width: 960px;
+    margin: 0 auto;
+  }
+  .search-result-card {
+    background: var(--canvas);
+    border: 1px solid var(--hairline-strong);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    box-shadow: var(--shadow-level-1);
+    transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease, border-color 0.2s ease;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+  }
+  .search-result-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-level-3), 0 8px 16px -6px rgba(0, 112, 243, 0.15);
+    border-color: var(--link);
+  }
+  .card-thumbnail-wrapper {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16/9;
+    background: #000;
+    overflow: hidden;
+  }
+  .card-thumbnail {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+  .search-result-card:hover .card-thumbnail {
+    transform: scale(1.03);
+  }
+  .card-duration {
+    position: absolute;
+    bottom: 4px;
+    right: 4px;
+    background: rgba(0, 0, 0, 0.85);
+    color: #fff;
+    font-family: var(--font-mono);
+    font-size: 8px;
+    padding: 0px 3px;
+    border-radius: var(--radius-xs);
+    font-weight: 500;
+    z-index: 2;
+  }
+  .card-content {
+    padding: 6px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    gap: 2px;
+  }
+  .card-title {
+    font-size: 11px;
+    font-weight: 600;
+    line-height: 1.2;
+    color: var(--text-ink);
+    margin: 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    height: 26px;
+  }
+  .card-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+  }
+  .card-channel {
+    font-size: 10px;
+    color: var(--text-body);
+    font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .card-views {
+    font-size: 9px;
+    color: var(--text-muted);
+  }
+  .card-cta-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 112, 243, 0.04);
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    z-index: 3;
+    pointer-events: none;
+  }
+  .search-result-card:hover .card-cta-overlay {
+    opacity: 1;
+  }
+
+  /* RESPONSIVE LAYOUT */
+  @media (max-width: 960px) {
+    .results-grid {
+      grid-template-columns: 1fr;
+    }
+    .features-grid {
+      grid-template-columns: 1fr;
+      padding: 0 var(--space-md);
+    }
+    .faq-grid {
+      grid-template-columns: 1fr;
+      padding: 0 var(--space-md);
+    }
+    .steps-row {
+      flex-direction: column;
+      gap: var(--space-xl);
+    }
+    .search-results-grid {
+      grid-template-columns: repeat(6, 1fr);
+      gap: var(--space-xs);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .nav-links { display: none; }
+    .nav-hamburger { display: flex; }
+    .nav-container {
+      padding: 0 var(--space-md);
+    }
+    .nav-right {
+      gap: var(--space-xs);
+    }
+    .secure-badge {
+      display: none !important;
+    }
+    .hero-title {
+      font-size: 32px;
+      line-height: 36px;
+      letter-spacing: -1.2px;
+    }
+    .hero-body {
+      font-size: 16px;
+      line-height: 24px;
+    }
+    .results-band {
+      padding: var(--space-xl) 0;
+    }
+    .footer-grid {
+      grid-template-columns: 1fr;
+      gap: var(--space-xl);
+    }
+    .col-type, :global(.col-type-cell),
+    .col-date, :global(.col-date-cell) {
+      display: none !important;
+    }
+    .col-title, :global(.col-title-cell) { width: 50% !important; }
+    .col-action, :global(.col-action-cell) { width: 30% !important; }
+    .col-quality, :global(.col-quality-cell) { width: 20% !important; }
+    :global(.history-title-cell) {
+      max-width: 180px;
+    }
+    .history-table th, .history-table td {
+      padding: var(--space-xs) var(--space-sm);
+    }
+  }
+
+  @media (max-width: 576px) {
+    .options-card {
+      padding: var(--space-md);
+    }
+    .video-meta-details {
+      padding: var(--space-md);
+    }
+    .video-title {
+      font-size: 16px;
+    }
+    .search-results-grid {
+      grid-template-columns: repeat(4, 1fr);
+      gap: 4px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .logo-domain-mono {
+      display: none !important;
+    }
+    .nav-container {
+      padding: 0 var(--space-sm);
+    }
+    .btn-lang-toggle {
+      padding: 0 var(--space-xs);
+    }
+    .search-btn {
+      padding: 0 var(--space-md);
+      font-size: 13px;
+    }
+    :global(.quality-option-row) {
+      flex-direction: column;
+      align-items: stretch;
+      gap: var(--space-sm);
+      text-align: center;
+      padding: var(--space-sm);
+    }
+    :global(.quality-option-info) {
+      align-items: center;
+    }
+    :global(.btn-download-quality) {
+      justify-content: center;
+      width: 100%;
+      height: 40px;
+    }
+    :global(.history-title-cell) {
+      max-width: 110px;
+    }
+    .display-lg {
+      font-size: 26px;
+      line-height: 32px;
+    }
+    .card-marketing {
+      padding: var(--space-md);
+    }
+    .faq-card {
+      padding: var(--space-md);
+    }
+  }
 </style>
+
+<script is:inline>
+(function() {
+  const API_BASE = typeof window !== 'undefined' && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
+    ? 'http://localhost:5000'
+    : 'https://your-backend-api-url.com'; // Update this to your deployed Python server URL
+
+  // Translations Reference from loaded asset
+  const TRANSLATIONS = window.Y2MATE_TRANSLATIONS || { en: {} };
+  let currentLang = 'en';
+
+  function getTranslation(key) {
+    const dict = TRANSLATIONS[currentLang] || TRANSLATIONS['en'] || {};
+    return dict[key] || TRANSLATIONS['en'][key] || '';
+  }
+
+  function setLanguage(lang) {
+    if (!TRANSLATIONS[lang]) lang = 'en';
+    currentLang = lang;
+    localStorage.setItem('cq_y2mate_lang', lang);
+    
+    document.documentElement.dir = 'ltr';
+    document.documentElement.lang = lang;
+    
+    // Update all elements with data-t
+    document.querySelectorAll('[data-t]').forEach(el => {
+      const key = el.getAttribute('data-t');
+      const val = getTranslation(key);
+      if (val) {
+        el.innerHTML = val;
+      }
+    });
+
+    // Update all elements with data-placeholder-t
+    document.querySelectorAll('[data-placeholder-t]').forEach(el => {
+      const key = el.getAttribute('data-placeholder-t');
+      const val = getTranslation(key);
+      if (val) {
+        el.placeholder = val;
+      }
+    });
+
+    // Update current code on display button
+    const currentLangCodeEl = document.getElementById('current-lang-code');
+    if (currentLangCodeEl) {
+      currentLangCodeEl.textContent = lang;
+    }
+
+    // Mark current language active in dropdown list
+    const dropdown = document.getElementById('lang-dropdown');
+    if (dropdown) {
+      dropdown.querySelectorAll('button').forEach(btn => {
+        if (btn.getAttribute('data-lang') === lang) {
+          btn.classList.add('active');
+        } else {
+          btn.classList.remove('active');
+        }
+      });
+    }
+
+    // Rerender history list to apply language updates
+    if (typeof renderHistory === 'function') renderHistory();
+  }
+
+  let currentVideoUrl = '';
+  let resolvedVideoId = '';
+  let activeFormatData = null; // Stored video info formats list
+  let downloadHistory = [];
+
+  function $(id) { return document.getElementById(id); }
+  function show(el) { if(el) el.classList.remove('hidden'); }
+  function hide(el) { if(el) el.classList.add('hidden'); }
+
+  // Sound Engine Setup (synthesizing beep micro-sounds)
+  let audioCtx = null;
+  function initAudio() {
+    if (!audioCtx) {
+      audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    }
+  }
+  function playClick() {
+    if (localStorage.getItem('cq_y2mate_muted') === 'true') return;
+    try {
+      initAudio();
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(600, audioCtx.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(100, audioCtx.currentTime + 0.08);
+      gain.gain.setValueAtTime(0.05, audioCtx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.08);
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+      osc.start();
+      osc.stop(audioCtx.currentTime + 0.08);
+    } catch(e) {}
+  }
+  
+  function playCompleteSound() {
+    if (localStorage.getItem('cq_y2mate_muted') === 'true') return;
+    try {
+      initAudio();
+      const now = audioCtx.currentTime;
+      // High pitch double-chime
+      [523.25, 659.25].forEach((freq, idx) => {
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(freq, now + idx * 0.1);
+        gain.gain.setValueAtTime(0.06, now + idx * 0.1);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.1 + 0.3);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start(now + idx * 0.1);
+        osc.stop(now + idx * 0.1 + 0.3);
+      });
+    } catch(e) {}
+  }
+
+  // Load and Render History Dashboard
+  function loadHistory() {
+    const raw = localStorage.getItem('cq_y2mate_history');
+    if (raw) {
+      downloadHistory = JSON.parse(raw);
+    } else {
+      downloadHistory = [];
+    }
+    renderHistory();
+  }
+
+  function saveHistory() {
+    localStorage.setItem('cq_y2mate_history', JSON.stringify(downloadHistory));
+    renderHistory();
+  }
+
+  function addHistoryItem(title, quality, type, id) {
+    // Keep it unique: remove duplicates of the same video and quality
+    downloadHistory = downloadHistory.filter(item => !(item.id === id && item.quality === quality));
+    
+    downloadHistory.unshift({
+      title: title,
+      quality: quality,
+      type: type,
+      id: id,
+      date: new Date().toLocaleDateString(undefined, { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })
+    });
+
+    // Cap history length at 5
+    if (downloadHistory.length > 5) {
+      downloadHistory.pop();
+    }
+    saveHistory();
+  }
+
+  function deleteHistoryItem(id, quality) {
+    playClick();
+    downloadHistory = downloadHistory.filter(item => !(item.id === id && item.quality === quality));
+    saveHistory();
+  }
+
+  function renderHistory() {
+    const tbody = $('history-rows');
+    if (!tbody) return;
+    
+    if (downloadHistory.length === 0) {
+      tbody.innerHTML = `
+        <tr>
+          <td colspan="5" class="empty-state text-muted">
+            ${getTranslation('empty_history')}
+          </td>
+        </tr>
+      `;
+      return;
+    }
+
+    tbody.innerHTML = '';
+    downloadHistory.forEach(item => {
+      const row = document.createElement('tr');
+      const safeTitle = item.title.replace(/"/g, '&quot;');
+      row.innerHTML = `
+        <td class="col-title-cell">
+          <div class="history-title-cell" title="${safeTitle}">${item.title}</div>
+        </td>
+        <td class="col-action-cell" style="text-align: center; white-space: nowrap;">
+          <button class="btn-history-dl" data-id="${item.id}" data-title="${safeTitle}" data-quality="${item.quality}" data-type="${item.type}" title="Redownload">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="7 10 12 15 17 10"></polyline>
+              <line x1="12" y1="15" x2="12" y2="3"></line>
+            </svg>
+          </button>
+          <button class="btn-history-del" data-id="${item.id}" data-quality="${item.quality}" title="Remove from Dashboard">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="3 6 5 6 21 6"></polyline>
+              <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+            </svg>
+          </button>
+        </td>
+        <td class="col-quality-cell">
+          <span class="caption-mono font-mono">${item.quality}</span>
+        </td>
+        <td class="col-type-cell">
+          <span class="history-tag ${item.type}">${item.type === 'video' ? getTranslation('video') : getTranslation('audio')}</span>
+        </td>
+        <td class="col-date-cell text-muted" style="font-size: 12px;">
+          ${item.date}
+        </td>
+      `;
+      tbody.appendChild(row);
+    });
+
+    // Attach row events
+    tbody.querySelectorAll('.btn-history-dl').forEach(btn => {
+      btn.addEventListener('click', function() {
+        const id = btn.getAttribute('data-id');
+        const quality = btn.getAttribute('data-quality');
+        const type = btn.getAttribute('data-type');
+        const title = btn.getAttribute('data-title');
+        
+        currentVideoUrl = 'https://www.youtube.com/watch?v=' + id;
+        resolvedVideoId = id;
+        
+        // Find format buttons and trigger them or call direct download
+        playClick();
+        initiateDownloadProcess(btn, quality, type, title);
+      });
+    });
+
+    tbody.querySelectorAll('.btn-history-del').forEach(btn => {
+      btn.addEventListener('click', function() {
+        const id = btn.getAttribute('data-id');
+        const quality = btn.getAttribute('data-quality');
+        deleteHistoryItem(id, quality);
+      });
+    });
+  }
+
+  // Google Autocomplete Search Suggestion JSONP trigger
+  let lastSearchVal = '';
+  let autocompleteTimer = null;
+
+  async function updateSuggestions() {
+    const val = $('url-input').value.trim();
+    const dropdown = $('suggestions-dropdown');
+    
+    if (!val || val === lastSearchVal) {
+      if (!val) hide(dropdown);
+      return;
+    }
+    lastSearchVal = val;
+
+    // Do not suggest if it looks like a URL
+    if (val.startsWith('http://') || val.startsWith('https://') || val.includes('youtube.com') || val.includes('youtu.be')) {
+      hide(dropdown);
+      return;
+    }
+
+    // JSONP trigger
+    const callbackName = 'jsonp_autocomplete_' + Math.round(100000 * Math.random());
+    window[callbackName] = function(data) {
+      delete window[callbackName];
+      const oldScript = $(callbackName + '_script');
+      if (oldScript) document.body.removeChild(oldScript);
+      
+      const suggestions = data && data[1] ? data[1] : [];
+      renderSuggestions(suggestions);
+    };
+
+    const oldScript = $(callbackName + '_script');
+    if (oldScript) document.body.removeChild(oldScript);
+
+    const script = document.createElement('script');
+    script.id = callbackName + '_script';
+    script.src = `https://suggestqueries.google.com/complete/search?client=youtube&ds=yt&q=${encodeURIComponent(val)}&jsonp=${callbackName}`;
+    document.body.appendChild(script);
+  }
+
+  function renderSuggestions(list) {
+    const dropdown = $('suggestions-dropdown');
+    if (!list || list.length === 0) {
+      hide(dropdown);
+      return;
+    }
+
+    dropdown.innerHTML = '';
+    list.slice(0, 6).forEach(item => {
+      const div = document.createElement('div');
+      div.className = 'suggestion-item';
+      div.innerHTML = `
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <span>${item[0]}</span>
+      `;
+      div.addEventListener('click', function() {
+        $('url-input').value = item[0];
+        hide(dropdown);
+        playClick();
+        handleSearch();
+      });
+      dropdown.appendChild(div);
+    });
+
+    show(dropdown);
+  }
+
+  function isYouTubeUrl(url) {
+    const patterns = [
+      /(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/|youtube\.com\/v\/|youtube\.com\/shorts\/)([a-zA-Z0-9_-]{11})/,
+      /^([a-zA-Z0-9_-]{11})$/
+    ];
+    for (const pattern of patterns) {
+      if (pattern.test(url)) return true;
+    }
+    return false;
+  }
+
+  // Handle YouTube URL details parsing
+  async function handleSearch() {
+    const val = $('url-input').value.trim();
+    hide($('error-state'));
+    hide($('results-section'));
+    hide($('search-results-section'));
+    hide($('suggestions-dropdown'));
+    
+    if (!val) {
+      showError(getTranslation('error_invalid') || 'Please enter a YouTube video URL or search keywords');
+      return;
+    }
+
+    playClick();
+    show($('loading-state'));
+    $('search-btn').disabled = true;
+    $('search-btn').querySelector('.btn-text').classList.add('hidden');
+    $('search-btn').querySelector('.btn-spinner').classList.remove('hidden');
+
+    if (isYouTubeUrl(val)) {
+      try {
+        const resp = await fetch(API_BASE + '/api/info?url=' + encodeURIComponent(val));
+        const data = await resp.json();
+
+        $('search-btn').disabled = false;
+        $('search-btn').querySelector('.btn-text').classList.remove('hidden');
+        $('search-btn').querySelector('.btn-spinner').classList.add('hidden');
+        hide($('loading-state'));
+
+        if (!resp.ok || data.error) {
+          throw new Error(data.error || 'Failed to fetch video information');
+        }
+
+        // Populate Visual Mockup Player Details
+        resolvedVideoId = data.id;
+        currentVideoUrl = 'https://www.youtube.com/watch?v=' + data.id;
+        activeFormatData = data;
+        
+        $('browser-url-label').textContent = 'youtube.com/watch?v=' + data.id;
+        $('preview-iframe').src = `https://www.youtube.com/embed/${data.id}?autoplay=0&rel=0`;
+        
+        $('video-title').textContent = data.title;
+        $('video-channel').textContent = data.channel;
+        $('txt-duration').textContent = data.duration_formatted;
+        $('txt-views').textContent = formatNumber(data.view_count) + ' ' + getTranslation('views');
+        $('txt-likes').textContent = formatNumber(data.like_count) + ' ' + getTranslation('likes');
+
+        // Build Format Quality Option Rows
+        buildFormatOptions(data);
+
+        // Display results band
+        show($('results-section'));
+        
+        // Smooth scroll to results
+        $('results-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+      } catch (err) {
+        $('search-btn').disabled = false;
+        $('search-btn').querySelector('.btn-text').classList.remove('hidden');
+        $('search-btn').querySelector('.btn-spinner').classList.add('hidden');
+        hide($('loading-state'));
+        showError(err.message || 'Failed to analyze video. Is the backend server running?');
+      }
+    } else {
+      // Keyword search
+      try {
+        const resp = await fetch(API_BASE + '/api/search?q=' + encodeURIComponent(val));
+        const data = await resp.json();
+
+        $('search-btn').disabled = false;
+        $('search-btn').querySelector('.btn-text').classList.remove('hidden');
+        $('search-btn').querySelector('.btn-spinner').classList.add('hidden');
+        hide($('loading-state'));
+
+        if (!resp.ok || data.error) {
+          throw new Error(data.error || 'Failed to fetch search results');
+        }
+
+        const grid = $('search-results-grid');
+        grid.innerHTML = '';
+
+        if (!data.results || data.results.length === 0) {
+          showError('No results found for your search query');
+          return;
+        }
+
+        data.results.forEach(video => {
+          const card = document.createElement('div');
+          card.className = 'search-result-card';
+          card.setAttribute('data-id', video.id);
+          card.innerHTML = `
+            <div class="card-thumbnail-wrapper">
+              <img class="card-thumbnail" src="${video.thumbnail}" alt="${video.title.replace(/"/g, '&quot;')}" loading="lazy" />
+              <span class="card-duration">${video.duration_formatted}</span>
+              <div class="card-cta-overlay"></div>
+            </div>
+            <div class="card-content">
+              <h3 class="card-title" title="${video.title.replace(/"/g, '&quot;')}">${video.title}</h3>
+              <div class="card-meta">
+                <span class="card-channel">${video.channel}</span>
+                <span class="card-views">${video.view_count_formatted} views</span>
+              </div>
+            </div>
+          `;
+          card.addEventListener('click', function() {
+            $('url-input').value = 'https://www.youtube.com/watch?v=' + video.id;
+            hide($('search-results-section'));
+            handleSearch();
+          });
+          grid.appendChild(card);
+        });
+
+        show($('search-results-section'));
+        $('search-results-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+      } catch (err) {
+        $('search-btn').disabled = false;
+        $('search-btn').querySelector('.btn-text').classList.remove('hidden');
+        $('search-btn').querySelector('.btn-spinner').classList.add('hidden');
+        hide($('loading-state'));
+        showError(err.message || 'Failed to search YouTube. Is the backend server running?');
+      }
+    }
+  }
+
+  function formatNumber(num) {
+    if (!num) return '0';
+    if (num >= 1000000) return (num / 1000000).toFixed(1) + 'M';
+    if (num >= 1000) return (num / 1000).toFixed(1) + 'K';
+    return num.toString();
+  }
+
+  function showError(msg) {
+    const el = $('error-state');
+    $('error-message').textContent = msg;
+    show(el);
+    // Beep warning sound
+    if (localStorage.getItem('cq_y2mate_muted') !== 'true') {
+      try {
+        initAudio();
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(150, audioCtx.currentTime);
+        gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.2);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + 0.2);
+      } catch(e) {}
+    }
+  }
+
+  // Render video and audio format grids
+  function buildFormatOptions(data) {
+    const vContainer = $('video-options');
+    const aContainer = $('audio-options');
+
+    vContainer.innerHTML = '';
+    aContainer.innerHTML = '';
+
+    // Render Video formats (MP4)
+    data.video_formats.forEach(f => {
+      const row = document.createElement('div');
+      row.className = 'quality-option-row';
+      
+      // Check if resolution is High definition
+      const isHD = parseInt(f.quality) >= 720;
+      const hdBadge = isHD ? '<span class="quality-option-badge">HD</span>' : '';
+
+      row.innerHTML = `
+        <div class="quality-option-info">
+          <span class="quality-option-title">${f.quality} (.${f.ext})</span>
+          <span class="quality-option-size">${getTranslation('size')}: ${f.size}</span>
+          ${hdBadge}
+        </div>
+        <button class="btn-download-quality" data-quality="${f.quality}" data-type="video" data-title="${data.title.replace(/"/g, '&quot;')}">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="7 10 12 15 17 10"></polyline>
+            <line x1="12" y1="15" x2="12" y2="3"></line>
+          </svg>
+          ${getTranslation('btn_download')}
+        </button>
+      `;
+      vContainer.appendChild(row);
+    });
+
+    // Render Audio formats (MP3)
+    data.audio_formats.forEach(f => {
+      const row = document.createElement('div');
+      row.className = 'quality-option-row';
+      
+      // Best quality badge
+      const isBest = parseInt(f.quality) >= 256;
+      const bestBadge = isBest ? '<span class="quality-option-badge" style="background:#e8d8fc;color:#7928ca;">HQ</span>' : '';
+
+      const label = f.ext.toUpperCase();
+      const btnText = f.ext === 'm4a' ? getTranslation('btn_dl_m4a') : getTranslation('btn_conv_mp3');
+
+      row.innerHTML = `
+        <div class="quality-option-info">
+          <span class="quality-option-title">${label} Audio - ${f.quality}</span>
+          <span class="quality-option-size">${getTranslation('size')}: ${f.size}</span>
+          ${bestBadge}
+        </div>
+        <button class="btn-download-quality" data-quality="${f.quality}" data-type="audio" data-title="${data.title.replace(/"/g, '&quot;')}" data-ext="${f.ext}">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"></path>
+          </svg>
+          ${btnText}
+        </button>
+      `;
+      aContainer.appendChild(row);
+    });
+
+    // Attach events to download buttons
+    document.querySelectorAll('.btn-download-quality').forEach(btn => {
+      btn.addEventListener('click', function() {
+        const quality = btn.getAttribute('data-quality');
+        const type = btn.getAttribute('data-type');
+        const title = btn.getAttribute('data-title');
+        playClick();
+        initiateDownloadProcess(btn, quality, type, title);
+      });
+    });
+  }
+
+  // Common Download Trigger with custom smooth progress indicators
+  function initiateDownloadProcess(btn, quality, type, title) {
+    if (!currentVideoUrl) {
+      alert(getTranslation('alert_search_first'));
+      return;
+    }
+
+    const originalHTML = btn.innerHTML;
+    btn.disabled = true;
+    btn.innerHTML = `<div class="spinner" style="width:14px;height:14px;border-width:2px;border-top-color:currentColor;"></div> ${getTranslation('processing')}`;
+
+    // Show custom progress bar
+    const progressBox = $('download-progress');
+    const fill = $('progress-fill');
+    const txt = $('progress-text');
+    const pct = $('progress-percent');
+
+    show(progressBox);
+    fill.style.width = '10%';
+    txt.textContent = getTranslation('contacting_api') || 'Preparing download...';
+    pct.textContent = '10%';
+
+    const ext = btn.getAttribute('data-ext') || 'mp3';
+    const downloadUrl = API_BASE + '/api/download';
+
+    fetch(downloadUrl, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ 
+        url: currentVideoUrl, 
+        quality: quality, 
+        type: type,
+        is_vertical: activeFormatData ? activeFormatData.is_vertical : false,
+        ext: ext
+      })
+    })
+    .then(resp => {
+      if (!resp.ok) {
+        return resp.json().then(err => {
+          throw new Error(err.error || 'Failed to start download. Server returned status ' + resp.status);
+        });
+      }
+      return resp.json();
+    })
+    .then(data => {
+      const taskId = data.task_id;
+      pollStatus(taskId);
+    })
+    .catch(err => {
+      hide(progressBox);
+      alert((getTranslation('dl_failed') || 'Download Failed: ') + err.message);
+      btn.innerHTML = originalHTML;
+      btn.disabled = false;
+    });
+
+    function pollStatus(taskId) {
+      const statusUrl = API_BASE + '/api/download/status/' + taskId;
+
+      fetch(statusUrl)
+      .then(resp => {
+        if (!resp.ok) {
+          throw new Error('Failed to get download status');
+        }
+        return resp.json();
+      })
+      .then(task => {
+        if (task.status === 'failed') {
+          throw new Error(task.error || 'Download failed on server');
+        }
+
+        if (task.status === 'pending') {
+          fill.style.width = '10%';
+          pct.textContent = '10%';
+          txt.textContent = getTranslation('contacting_api') || 'Preparing download...';
+          setTimeout(() => pollStatus(taskId), 1000);
+        } else if (task.status === 'downloading') {
+          const rawProgress = task.progress || 0;
+          const displayPct = 10 + (rawProgress * 0.75); // scale 0-100 to 10-85
+          fill.style.width = Math.min(85, Math.round(displayPct)) + '%';
+          pct.textContent = Math.round(rawProgress) + '%';
+
+          let speedEtaStr = '';
+          if (task.speed && task.eta) {
+            speedEtaStr = ' (' + task.speed + ', ETA: ' + task.eta + ')';
+          }
+          txt.textContent = (getTranslation('downloading_streams') || 'Downloading media data streams...') + speedEtaStr;
+          setTimeout(() => pollStatus(taskId), 1000);
+        } else if (task.status === 'processing') {
+          fill.style.width = '90%';
+          pct.textContent = '90%';
+          txt.textContent = type === 'audio' 
+            ? (getTranslation('converting_audio') || 'Converting audio tracks to MP3...') 
+            : (getTranslation('merging_streams') || 'Merging high-quality DASH video streams...');
+          setTimeout(() => pollStatus(taskId), 1000);
+        } else if (task.status === 'completed') {
+          fill.style.width = '95%';
+          pct.textContent = '95%';
+          txt.textContent = getTranslation('packaging_file') || 'Packaging converted file...';
+
+          fetch(API_BASE + '/api/download/file/' + taskId)
+          .then(fileResp => {
+            if (!fileResp.ok) {
+              throw new Error('Failed to retrieve file from server');
+            }
+            return fileResp.blob();
+          })
+          .then(blob => {
+            fill.style.width = '100%';
+            pct.textContent = '100%';
+            txt.textContent = getTranslation('dl_completed') || 'Download completed!';
+            playCompleteSound();
+
+            const fileExt = type === 'audio' ? ext : 'mp4';
+            const safeFilename = title.replace(/[^a-zA-Z0-9_\- ]/g, '_') + '.' + fileExt;
+
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = safeFilename;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+
+            addHistoryItem(title, quality, type, resolvedVideoId);
+
+            setTimeout(() => {
+              URL.revokeObjectURL(a.href);
+              hide(progressBox);
+              fill.style.width = '0%';
+            }, 4000);
+
+            btn.innerHTML = originalHTML;
+            btn.disabled = false;
+          })
+          .catch(err => {
+            hide(progressBox);
+            alert((getTranslation('dl_failed') || 'Download Failed: ') + err.message);
+            btn.innerHTML = originalHTML;
+            btn.disabled = false;
+          });
+        }
+      })
+      .catch(err => {
+        hide(progressBox);
+        alert((getTranslation('dl_failed') || 'Download Failed: ') + err.message);
+        btn.innerHTML = originalHTML;
+        btn.disabled = false;
+      });
+    }
+  }
+
+  // Keyboard navigation for Search Suggestions dropdown
+  $('url-input').addEventListener('keyup', function(e) {
+    if (e.key === 'ArrowDown' || e.key === 'ArrowUp' || e.key === 'Enter') {
+      const dropdown = $('suggestions-dropdown');
+      if (dropdown && !dropdown.classList.contains('hidden')) {
+        const items = dropdown.querySelectorAll('.suggestion-item');
+        if (items.length > 0) {
+          let activeIndex = -1;
+          items.forEach((item, idx) => {
+            if (item.classList.contains('active')) activeIndex = idx;
+          });
+
+          if (e.key === 'ArrowDown') {
+            e.preventDefault();
+            if (activeIndex !== -1) items[activeIndex].classList.remove('active');
+            activeIndex = (activeIndex + 1) % items.length;
+            items[activeIndex].classList.add('active');
+            $('url-input').value = items[activeIndex].querySelector('span').textContent;
+          } else if (e.key === 'ArrowUp') {
+            e.preventDefault();
+            if (activeIndex !== -1) items[activeIndex].classList.remove('active');
+            activeIndex = (activeIndex - 1 + items.length) % items.length;
+            items[activeIndex].classList.add('active');
+            $('url-input').value = items[activeIndex].querySelector('span').textContent;
+          } else if (e.key === 'Enter') {
+            if (activeIndex !== -1) {
+              hide(dropdown);
+              handleSearch();
+            }
+          }
+          return;
+        }
+      }
+    }
+
+    // Debounce autocomplete suggestions trigger
+    if (autocompleteTimer) clearTimeout(autocompleteTimer);
+    autocompleteTimer = setTimeout(updateSuggestions, 200);
+  });
+
+  // Close search suggestions when clicking outside
+  document.addEventListener('click', function(e) {
+    if (e.target.id !== 'url-input') {
+      hide($('suggestions-dropdown'));
+    }
+  });
+
+  // Attach search submit events
+  $('search-btn').addEventListener('click', handleSearch);
+  $('url-input').addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') {
+      const dropdown = $('suggestions-dropdown');
+      if (dropdown && dropdown.classList.contains('hidden')) {
+        handleSearch();
+      }
+    }
+  });
+
+  // Formats tab selections
+  document.querySelectorAll('.format-tab').forEach(tab => {
+    tab.addEventListener('click', function() {
+      playClick();
+      document.querySelectorAll('.format-tab').forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      
+      if (tab.getAttribute('data-format') === 'video') {
+        show($('video-options'));
+        hide($('audio-options'));
+      } else {
+        hide($('video-options'));
+        show($('audio-options'));
+      }
+    });
+  });
+
+  // Drawer events (Mobile nav)
+  $('nav-hamburger').addEventListener('click', function() {
+    playClick();
+    $('mobile-drawer').classList.add('active');
+    $('drawer-backdrop').classList.add('active');
+  });
+
+  function closeDrawer() {
+    $('mobile-drawer').classList.remove('active');
+    $('drawer-backdrop').classList.remove('active');
+  }
+
+  $('drawer-close').addEventListener('click', closeDrawer);
+  $('drawer-backdrop').addEventListener('click', closeDrawer);
+  document.querySelectorAll('.drawer-link').forEach(link => {
+    link.addEventListener('click', closeDrawer);
+  });
+
+  // Sound Muted toggle
+  const soundBtn = $('btn-sound-toggle');
+  soundBtn.addEventListener('click', function() {
+    const currentMute = localStorage.getItem('cq_y2mate_muted') === 'true';
+    const newMute = !currentMute;
+    localStorage.setItem('cq_y2mate_muted', newMute ? 'true' : 'false');
+    
+    if (newMute) {
+      $('sound-icon-on').style.display = 'none';
+      $('sound-icon-off').style.display = 'block';
+    } else {
+      $('sound-icon-on').style.display = 'block';
+      $('sound-icon-off').style.display = 'none';
+      // Play a confirmation sound
+      playClick();
+    }
+  });
+
+  // Init Sound UI state
+  const isMuted = localStorage.getItem('cq_y2mate_muted') === 'true';
+  if (isMuted) {
+    $('sound-icon-on').style.display = 'none';
+    $('sound-icon-off').style.display = 'block';
+  } else {
+    $('sound-icon-on').style.display = 'block';
+    $('sound-icon-off').style.display = 'none';
+  }
+
+  // Theme Toggle Logic
+  const themeBtn = $('btn-theme-toggle');
+  const sunIcon = $('theme-icon-sun');
+  const moonIcon = $('theme-icon-moon');
+
+  function updateThemeUI(theme) {
+    if (theme === 'dark') {
+      sunIcon.style.display = 'block';
+      moonIcon.style.display = 'none';
+      document.documentElement.classList.add('dark');
+    } else {
+      sunIcon.style.display = 'none';
+      moonIcon.style.display = 'block';
+      document.documentElement.classList.remove('dark');
+    }
+  }
+
+  // Sync state with layout inline script initial load
+  const initialTheme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+  updateThemeUI(initialTheme);
+
+  themeBtn.addEventListener('click', function() {
+    playClick();
+    const isDark = document.documentElement.classList.contains('dark');
+    const newTheme = isDark ? 'light' : 'dark';
+    localStorage.setItem('y2mate_theme', newTheme);
+    updateThemeUI(newTheme);
+  });
+
+  // Language Selector toggle
+  const langBtn = $('btn-lang-toggle');
+  const langDropdown = $('lang-dropdown');
+
+  if (langBtn && langDropdown) {
+    langBtn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      playClick();
+      langDropdown.classList.toggle('hidden');
+    });
+
+    document.addEventListener('click', function(e) {
+      if (!langDropdown.classList.contains('hidden') && !e.target.closest('.btn-lang-selector-container')) {
+        langDropdown.classList.add('hidden');
+      }
+    });
+
+    langDropdown.querySelectorAll('button').forEach(btn => {
+      btn.addEventListener('click', function() {
+        const selected = btn.getAttribute('data-lang');
+        playClick();
+        setLanguage(selected);
+        langDropdown.classList.add('hidden');
+      });
+    });
+  }
+
+  // Load history on initialization
+  loadHistory();
+
+  // Load language on initialization
+  const initialLang = localStorage.getItem('cq_y2mate_lang') || 'en';
+  setLanguage(initialLang);
+
+  // Check for url query parameter on load
+  const urlParams = new URLSearchParams(window.location.search);
+  const queryUrl = urlParams.get('url');
+  if (queryUrl) {
+    const decodedUrl = decodeURIComponent(queryUrl);
+    const inputEl = $('url-input');
+    if (inputEl) {
+      inputEl.value = decodedUrl;
+      setTimeout(() => {
+        handleSearch();
+      }, 300);
+    }
+  }
+})();
+</script>

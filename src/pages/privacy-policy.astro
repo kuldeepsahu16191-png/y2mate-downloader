@@ -1,0 +1,148 @@
+---
+import InfoLayout from '../layouts/InfoLayout.astro';
+---
+
+<InfoLayout 
+  title="Privacy Policy — Y2mate Downloader" 
+  description="Read the Privacy Policy for Y2mate. Learn how we handle your data, our client-side storage policies, and browser integration safety parameters."
+>
+  <div class="content-article">
+    <span class="caption-mono section-eyebrow">Legal Document</span>
+    <h1 class="display-lg">Privacy Policy</h1>
+    
+    <p class="lead-text">
+      This Privacy Policy describes how Y2mate ("we", "us", "our") handles, processes, and protects your information when you use our web application.
+    </p>
+
+    <div class="divider"></div>
+
+    <section class="info-section">
+      <h2>1. Information We Do Not Collect</h2>
+      <p>
+        Y2mate is designed with a privacy-first architecture. We do not require account registration, email sign-ups, or personal identity verification. Consequently:
+      </p>
+      <ul>
+        <li>We do not collect or store personal identifiers such as names, email addresses, IP addresses, or phone numbers.</li>
+        <li>We do not record your search queries, pasted YouTube URLs, or downloaded file logs on our servers.</li>
+        <li>All conversion processes are handled on-the-fly and streamed directly to your browser without long-term server storage.</li>
+      </ul>
+    </section>
+
+    <section class="info-section">
+      <h2>2. Client-Side Local Storage</h2>
+      <p>
+        To provide a rich and customized user experience, Y2mate utilizes your browser's local storage (such as <code>localStorage</code>) to save:
+      </p>
+      <ul>
+        <li>Your theme preference (Light or Dark mode).</li>
+        <li>Your selected UI language.</li>
+        <li>Your local download history dashboard (saved purely on your own device and visible only to you).</li>
+      </ul>
+      <p>
+        This information remains entirely within your local browser sandbox. You can clear this data at any time by clearing your browser's cache and site cookies.
+      </p>
+    </section>
+
+    <section class="info-section">
+      <h2>3. Log Files</h2>
+      <p>
+        Like most standard website servers, we use log files for diagnostic and maintenance purposes. These logs include Internet Protocol (IP) addresses, browser type, internet service provider (ISP), referring/exit pages, platform type, date/time stamps, and generic page view statistics. This data is not linked to any personally identifiable information and is deleted automatically after 30 days.
+      </p>
+    </section>
+
+    <section class="info-section">
+      <h2>4. Third-Party Links & Advertising</h2>
+      <p>
+        Y2mate is proud to be a completely ad-free service. We do not display third-party banner ads, redirect advertisements, or pop-ups. However, our website may contain links to external sites (such as YouTube). We do not operate or control these third-party platforms and are not responsible for their content or privacy policies. We encourage you to read their respective privacy statements when visiting them.
+      </p>
+    </section>
+
+    <section class="info-section">
+      <h2>5. Security</h2>
+      <p>
+        We employ industry-standard secure socket layers (SSL/TLS) to encrypt all data transmission between your browser and our servers. While we strive to maintain state-of-the-art protections for our network, please remember that no method of transmission over the internet is 100% secure.
+      </p>
+    </section>
+
+    <section class="info-section">
+      <h2>6. Changes to this Policy</h2>
+      <p>
+        We reserve the right to modify or update this Privacy Policy at any time. Any changes will be posted directly on this page with an updated revision date. Your continued use of the website after changes are posted constitutes acceptance of those changes.
+      </p>
+      <p class="body-sm text-muted font-mono">Last updated: August 4, 2026</p>
+    </section>
+  </div>
+</InfoLayout>
+
+<style>
+  .content-article {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+  }
+  .section-eyebrow {
+    color: var(--violet);
+    margin-bottom: var(--space-xxs);
+  }
+  .display-lg {
+    font-size: 36px;
+    font-weight: 700;
+    line-height: 44px;
+    letter-spacing: -0.02em;
+    color: var(--text-ink);
+    margin-bottom: var(--space-xs);
+  }
+  .lead-text {
+    font-size: 18px;
+    line-height: 28px;
+    color: var(--text-body);
+    font-weight: 500;
+  }
+  .divider {
+    height: 1px;
+    background: var(--hairline);
+    margin: var(--space-md) 0;
+  }
+  .info-section {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+  .info-section h2 {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--text-ink);
+    margin-bottom: var(--space-xxs);
+  }
+  .info-section p {
+    font-size: 15px;
+    line-height: 24px;
+    color: var(--text-body);
+  }
+  .info-section ul {
+    margin-left: var(--space-lg);
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .info-section li {
+    font-size: 14px;
+    line-height: 22px;
+    color: var(--text-body);
+  }
+  code {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    background: var(--canvas-soft-2);
+    border: 1px solid var(--hairline);
+    padding: 2px 4px;
+    border-radius: var(--radius-xs);
+  }
+
+  @media (max-width: 768px) {
+    .display-lg {
+      font-size: 28px;
+      line-height: 34px;
+    }
+  }
+</style>

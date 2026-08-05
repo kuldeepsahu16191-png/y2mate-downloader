@@ -1,0 +1,415 @@
+---
+import InfoLayout from '../layouts/InfoLayout.astro';
+---
+
+<InfoLayout 
+  title="404 Page Not Found — Y2mate" 
+  description="The page you are looking for does not exist on Y2mate. Search and download YouTube videos to MP3 or MP4 here."
+>
+  <div class="error-container">
+    <!-- Retro TV SVG Illustration -->
+    <div class="tv-illustration">
+      <svg class="retro-tv" viewBox="0 0 200 160" width="200" height="160">
+        <!-- Antennas -->
+        <line x1="70" y1="30" x2="40" y2="10" stroke="var(--text-muted)" stroke-width="3" stroke-linecap="round" />
+        <circle cx="40" cy="10" r="5" fill="var(--violet)" />
+        <line x1="130" y1="30" x2="160" y2="10" stroke="var(--text-muted)" stroke-width="3" stroke-linecap="round" />
+        <circle cx="160" cy="10" r="5" fill="var(--highlight-pink)" />
+        
+        <!-- TV Body -->
+        <rect x="20" y="30" width="160" height="110" rx="15" fill="var(--canvas-soft-2)" stroke="var(--hairline-strong)" stroke-width="4" />
+        
+        <!-- Screen Outer -->
+        <rect x="30" y="40" width="110" height="90" rx="10" fill="#121212" stroke="var(--hairline)" stroke-width="2" />
+        
+        <!-- Screen Inner / Static display -->
+        <g class="tv-screen-content">
+          <rect x="34" y="44" width="102" height="82" rx="6" fill="url(#staticGradient)" />
+          <text x="85" y="92" font-family="var(--font-mono)" font-size="28" font-weight="bold" fill="var(--on-primary)" text-anchor="middle" letter-spacing="2" class="error-code-text">404</text>
+          <!-- Scanline overlay effect -->
+          <rect x="34" y="44" width="102" height="82" rx="6" fill="url(#scanlinePattern)" opacity="0.15" />
+        </g>
+        
+        <!-- Knobs & Speaker Grille -->
+        <!-- Top Knob -->
+        <circle cx="160" cy="55" r="8" fill="var(--hairline-strong)" />
+        <line x1="160" y1="49" x2="160" y2="55" stroke="var(--canvas)" stroke-width="2" stroke-linecap="round" />
+        
+        <!-- Bottom Knob -->
+        <circle cx="160" cy="75" r="8" fill="var(--hairline-strong)" />
+        <line x1="156" y1="75" x2="160" y2="75" stroke="var(--canvas)" stroke-width="2" stroke-linecap="round" />
+        
+        <!-- Speaker vents -->
+        <line x1="152" y1="95" x2="168" y2="95" stroke="var(--hairline-strong)" stroke-width="2" stroke-linecap="round" />
+        <line x1="152" y1="102" x2="168" y2="102" stroke="var(--hairline-strong)" stroke-width="2" stroke-linecap="round" />
+        <line x1="152" y1="109" x2="168" y2="109" stroke="var(--hairline-strong)" stroke-width="2" stroke-linecap="round" />
+        <line x1="152" y1="116" x2="168" y2="116" stroke="var(--hairline-strong)" stroke-width="2" stroke-linecap="round" />
+        <line x1="152" y1="123" x2="168" y2="123" stroke="var(--hairline-strong)" stroke-width="2" stroke-linecap="round" />
+        
+        <!-- TV Feet -->
+        <polygon points="45,140 35,155 45,155" fill="var(--hairline-strong)" />
+        <polygon points="155,140 165,155 155,155" fill="var(--hairline-strong)" />
+        
+        <!-- Definitions -->
+        <defs>
+          <linearGradient id="staticGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#2a1b3d" />
+            <stop offset="50%" stop-color="#44318d" />
+            <stop offset="100%" stop-color="#8265a7" />
+          </linearGradient>
+          <pattern id="scanlinePattern" width="100" height="4" patternUnits="userSpaceOnUse">
+            <line x1="0" y1="0" x2="100" y2="0" stroke="#000" stroke-width="2" />
+          </pattern>
+        </defs>
+      </svg>
+    </div>
+
+    <!-- Text Header -->
+    <h1 class="display-lg">Signal Lost</h1>
+    <p class="error-msg">
+      The requested channel does not exist. We searched our streaming directories but couldn't locate this page. It may have broadcasted to a different frequency or been decommissioned.
+    </p>
+
+    <!-- Search Redirect Box -->
+    <div class="search-box-card">
+      <p class="search-label">Paste a YouTube video URL below to start downloading directly:</p>
+      <div class="search-form">
+        <input 
+          type="text" 
+          id="url-input-404" 
+          placeholder="https://www.youtube.com/watch?v=..." 
+          aria-label="YouTube Link"
+        />
+        <button id="search-btn-404" class="btn-search-404">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="9 18 15 12 9 6"></polyline>
+          </svg>
+          <span>Convert</span>
+        </button>
+      </div>
+      <div id="error-feedback-404" class="error-feedback hidden"></div>
+    </div>
+
+    <!-- Actions -->
+    <div class="action-row">
+      <a href="/" class="btn-primary">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+          <polyline points="9 22 9 12 15 12 15 22"></polyline>
+        </svg>
+        <span>Return Home</span>
+      </a>
+      <a href="/contact" class="btn-secondary">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+        </svg>
+        <span>Report Issue</span>
+      </a>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- Quick Links Grid -->
+    <div class="quick-links-section">
+      <span class="caption-mono section-label">Helpful Channels</span>
+      <div class="links-grid">
+        <a href="/#faq" class="link-item">Frequently Asked Questions</a>
+        <a href="/about" class="link-item">About Our Project</a>
+        <a href="/privacy-policy" class="link-item">Privacy Guidelines</a>
+        <a href="/terms-conditions" class="link-item">Terms of Service</a>
+      </div>
+    </div>
+  </div>
+</InfoLayout>
+
+<style>
+  .error-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: var(--space-xl);
+    padding: var(--space-md) 0;
+  }
+
+  /* TV Float Animation */
+  .tv-illustration {
+    animation: float 4s ease-in-out infinite;
+    filter: drop-shadow(0 10px 15px rgba(0,0,0,0.1));
+  }
+  
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-8px);
+    }
+  }
+
+  /* Screen Flicker/Static Noise Animation */
+  .tv-screen-content rect:first-child {
+    animation: screenStatic 0.25s steps(2) infinite;
+  }
+
+  @keyframes screenStatic {
+    0%, 100% {
+      opacity: 0.9;
+    }
+    50% {
+      opacity: 1;
+    }
+  }
+
+  .display-lg {
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 40px;
+    letter-spacing: -0.02em;
+    color: var(--text-ink);
+  }
+
+  .error-msg {
+    font-size: 15px;
+    line-height: 24px;
+    color: var(--text-body);
+    max-width: 580px;
+  }
+
+  /* Search Redirect Styles */
+  .search-box-card {
+    background: var(--canvas-soft);
+    border: 1px solid var(--hairline);
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg);
+    width: 100%;
+    max-width: 600px;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+    text-align: left;
+    box-shadow: var(--shadow-level-1);
+  }
+
+  .search-label {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-body);
+  }
+
+  .search-form {
+    display: flex;
+    gap: var(--space-xs);
+    width: 100%;
+  }
+
+  .search-form input {
+    flex: 1;
+    height: 44px;
+    padding: 0 var(--space-md);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--hairline-strong);
+    background: var(--canvas);
+    color: var(--text-ink);
+    font-family: inherit;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  }
+
+  .search-form input:focus {
+    border-color: var(--violet);
+    box-shadow: 0 0 0 2px var(--violet-soft);
+  }
+
+  .btn-search-404 {
+    height: 44px;
+    padding: 0 var(--space-lg);
+    border-radius: var(--radius-md);
+    background: var(--violet);
+    color: #ffffff;
+    font-weight: 500;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+    transition: background 0.15s ease, transform 0.1s ease;
+  }
+
+  .btn-search-404:hover {
+    background: var(--violet-deep);
+  }
+
+  .btn-search-404:active {
+    transform: scale(0.98);
+  }
+
+  .error-feedback {
+    font-size: 13px;
+    color: var(--error-deep);
+    padding-left: var(--space-xxs);
+  }
+
+  .hidden {
+    display: none !important;
+  }
+
+  /* Action Buttons Row */
+  .action-row {
+    display: flex;
+    gap: var(--space-md);
+    justify-content: center;
+    width: 100%;
+  }
+
+  .btn-primary {
+    background: var(--text-ink);
+    color: var(--canvas);
+    border: 1px solid var(--text-ink);
+    padding: 10px var(--space-xl);
+    border-radius: var(--radius-pill);
+    font-weight: 500;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+    transition: all 0.15s ease;
+  }
+
+  .btn-primary:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+  }
+
+  .btn-secondary {
+    background: var(--canvas);
+    color: var(--text-body);
+    border: 1px solid var(--hairline-strong);
+    padding: 10px var(--space-xl);
+    border-radius: var(--radius-pill);
+    font-weight: 500;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+    transition: all 0.15s ease;
+  }
+
+  .btn-secondary:hover {
+    background: var(--canvas-soft-2);
+    color: var(--text-ink);
+    border-color: var(--text-ink);
+    transform: translateY(-1px);
+  }
+
+  .divider {
+    height: 1px;
+    background: var(--hairline);
+    width: 100%;
+    margin: var(--space-md) 0;
+  }
+
+  /* Quick links styling */
+  .quick-links-section {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+    width: 100%;
+  }
+
+  .section-label {
+    text-align: left;
+    color: var(--text-muted);
+    font-size: 11px;
+  }
+
+  .links-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-md);
+    width: 100%;
+  }
+
+  .link-item {
+    background: var(--canvas-soft);
+    border: 1px solid var(--hairline);
+    border-radius: var(--radius-md);
+    padding: var(--space-sm) var(--space-md);
+    text-align: left;
+    font-size: 14px;
+    color: var(--text-body);
+    transition: all 0.15s ease;
+  }
+
+  .link-item:hover {
+    background: var(--canvas);
+    border-color: var(--violet);
+    color: var(--violet);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-level-1);
+  }
+
+  /* Dark mode specific modifications */
+  :global(html.dark) .btn-primary {
+    background: #ffffff;
+    color: #0a0a0a;
+    border-color: #ffffff;
+  }
+
+  :global(html.dark) .btn-primary:hover {
+    background: #e5e5e5;
+  }
+
+  @media (max-width: 600px) {
+    .search-form {
+      flex-direction: column;
+    }
+    
+    .btn-search-404 {
+      justify-content: center;
+    }
+    
+    .action-row {
+      flex-direction: column;
+      align-items: stretch;
+    }
+    
+    .btn-primary, .btn-secondary {
+      justify-content: center;
+    }
+
+    .links-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<script is:inline>
+(function() {
+  const searchBtn = document.getElementById('search-btn-404');
+  const inputEl = document.getElementById('url-input-404');
+  const errorEl = document.getElementById('error-feedback-404');
+
+  function handleSearchRedirect() {
+    const val = inputEl.value.trim();
+    if (!val) {
+      errorEl.textContent = 'Please enter a valid YouTube URL or query';
+      errorEl.classList.remove('hidden');
+      return;
+    }
+    
+    errorEl.classList.add('hidden');
+    // Redirect to homepage with search URL parameter
+    window.location.href = '/?url=' + encodeURIComponent(val);
+  }
+
+  if (searchBtn && inputEl) {
+    searchBtn.addEventListener('click', handleSearchRedirect);
+    inputEl.addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') {
+        handleSearchRedirect();
+      }
+    });
+  }
+})();
+</script>
