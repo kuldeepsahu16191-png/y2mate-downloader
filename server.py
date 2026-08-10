@@ -639,7 +639,28 @@ def download_file(task_id):
 
 @app.route('/api/health', methods=['GET'])
 def health_check():
-    return jsonify({'status': 'ok', 'service': 'y2mate-api'})
+    import shutil
+    has_ffmpeg = shutil.which('ffmpeg') is not None
+    
+    # Check yt-dlp version
+    yt_version = "unknown"
+    try:
+        version_cmd = ['yt-dlp', '--version']
+        version_res = subprocess.run(version_cmd, capture_output=True, text=True, timeout=10)
+        if version_res.returncode == 0:
+            yt_version = version_res.stdout.strip()
+    except Exception as e:
+        yt_version = f"error: {str(e)}"
+
+    return jsonify({
+        'status': 'ok',
+        'service': 'y2mate-api',
+        'has_ffmpeg': has_ffmpeg,
+        'has_curl_cffi': HAS_CURL_CFFI,
+        'yt_dlp_version': yt_version,
+        'cookie_file': COOKIE_FILE,
+        'cookie_file_exists': COOKIE_FILE is not None and os.path.exists(COOKIE_FILE)
+    })
 
 
 def signal_handler(sig, frame):
