@@ -1,4 +1,4 @@
 Flask>=3.0.0
 Flask-Cors>=4.0.0
-yt-dlp
+yt-dlp[curl-cffi,default]
 gunicorn>=21.2.0

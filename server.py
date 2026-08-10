@@ -25,6 +25,33 @@ os.environ['PATH'] = os.path.dirname(os.path.abspath(__file__)) + os.pathsep + o
 DOWNLOAD_DIR = os.path.join(tempfile.gettempdir(), 'y2mate_downloads')
 os.makedirs(DOWNLOAD_DIR, exist_ok=True)
 
+# Check for cookies.txt
+COOKIE_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'cookies.txt')
+if not os.path.exists(COOKIE_FILE):
+    parent_cookie = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'cookies.txt')
+    if os.path.exists(parent_cookie):
+        COOKIE_FILE = parent_cookie
+    else:
+        COOKIE_FILE = None
+
+# Check if curl-cffi is available for browser impersonation
+HAS_CURL_CFFI = False
+try:
+    import curl_cffi
+    HAS_CURL_CFFI = True
+except ImportError:
+    pass
+
+def build_ytdlp_cmd(args):
+    """Build the yt-dlp command with necessary bypass options like impersonation and cookies."""
+    cmd = ['yt-dlp']
+    if HAS_CURL_CFFI:
+        cmd.extend(['--impersonate', 'chrome'])
+    if COOKIE_FILE and os.path.exists(COOKIE_FILE):
+        cmd.extend(['--cookies', COOKIE_FILE])
+    cmd.extend(args)
+    return cmd
+
 # Global dictionary to track background downloads
 tasks = {}
 
@@ -85,14 +112,13 @@ def get_video_info():
         target = f'ytsearch1:{url}'
 
     try:
-        cmd = [
-            'yt-dlp',
+        cmd = build_ytdlp_cmd([
             '--dump-json',
             '--no-download',
             '--no-warnings',
             '--no-check-certificates',
             target
-        ]
+        ])
 
         result = subprocess.run(cmd, capture_output=True, text=True, timeout=60)
 
@@ -274,14 +300,13 @@ def search_videos():
         return jsonify({'error': 'Search query is required'}), 400
 
     try:
-        cmd = [
-            'yt-dlp',
+        cmd = build_ytdlp_cmd([
             '--dump-json',
             '--flat-playlist',
             '--no-warnings',
             '--no-check-certificates',
             f'ytsearch9:{q}'
-        ]
+        ])
 
         result = subprocess.run(cmd, capture_output=True, text=True, timeout=30)
 
@@ -360,8 +385,7 @@ def background_download(task_id, video_id, url, quality, download_type, is_verti
         safe_quality = re.sub(r'[^a-zA-Z0-9]', '_', quality)
         output_template = os.path.join(DOWNLOAD_DIR, f'{video_id}_{safe_quality}.%(ext)s')
 
-        cmd = [
-            'yt-dlp',
+        cmd = build_ytdlp_cmd([
             '--no-warnings',
             '--no-check-certificates',
             '--newline',
@@ -369,7 +393,7 @@ def background_download(task_id, video_id, url, quality, download_type, is_verti
             '--retries', '10',
             '--fragment-retries', '10',
             '-o', output_template,
-        ]
+        ])
 
         import shutil
         has_ffmpeg = shutil.which('ffmpeg') is not None
@@ -518,13 +542,12 @@ def background_download(task_id, video_id, url, quality, download_type, is_verti
         filename = os.path.basename(downloaded_file)
 
         if download_type == 'audio':
-            title_cmd = [
-                'yt-dlp',
+            title_cmd = build_ytdlp_cmd([
                 '--get-title',
                 '--no-warnings',
                 '--no-check-certificates',
                 f'https://www.youtube.com/watch?v={video_id}'
-            ]
+            ])
             try:
                 title_result = subprocess.run(title_cmd, capture_output=True, text=True, timeout=30)
                 if title_result.returncode == 0 and title_result.stdout.strip():
