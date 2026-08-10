@@ -47,6 +47,8 @@ def build_ytdlp_cmd(args):
     cmd = ['yt-dlp']
     if HAS_CURL_CFFI:
         cmd.extend(['--impersonate', 'chrome'])
+    # Force mobile clients to bypass datacenter IP bot detection
+    cmd.extend(['--extractor-args', 'youtube:player_client=android,ios'])
     if COOKIE_FILE and os.path.exists(COOKIE_FILE):
         cmd.extend(['--cookies', COOKIE_FILE])
     cmd.extend(args)
