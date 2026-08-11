@@ -19,7 +19,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY server.py cookies.txt* ./
 
 # Expose port (Render/Railway will map this automatically)
-EXPOSE 5000
+EXPOSE 10000
 
 # Launch the server with Gunicorn, dynamically binding to the assigned PORT env variable
 CMD gunicorn --bind 0.0.0.0:$PORT --workers 2 server:app

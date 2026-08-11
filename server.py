@@ -73,10 +73,16 @@ def build_ytdlp_cmd(args):
     cmd = ['yt-dlp']
     if HAS_CURL_CFFI:
         cmd.extend(['--impersonate', 'chrome'])
-    # Force mobile clients to bypass datacenter IP bot detection
-    cmd.extend(['--extractor-args', 'youtube:player_client=android,ios'])
+    
+    # Check if we have cookies
     if COOKIE_FILE and os.path.exists(COOKIE_FILE):
         cmd.extend(['--cookies', COOKIE_FILE])
+        # Web cookies work fine with default player clients (like web), which support up to 4K resolutions.
+    else:
+        # Without cookies, we force the tvhtml5 client.
+        # tvhtml5 is highly effective at bypassing bot detection on datacenter IPs, while returning up to 4K/8K resolutions.
+        cmd.extend(['--extractor-args', 'youtube:player_client=tvhtml5'])
+        
     cmd.extend(args)
     return cmd
 
@@ -183,7 +189,7 @@ def get_video_info():
                 
                 # Standard resolutions matching logic with 15px crop tolerance
                 matched_res = None
-                for std_res in [144, 240, 360, 480, 720, 1080, 1440, 2160]:
+                for std_res in [144, 240, 360, 480, 720, 1080, 1440, 2160, 4320]:
                     if abs(res_val - std_res) <= 15:
                         matched_res = std_res
                         break
@@ -255,8 +261,8 @@ def get_video_info():
 
         # Fallbacks if list remains empty
         if not video_formats:
-            for height in [1080, 720, 480, 360]:
-                bitrate_map = {1080: 4500, 720: 2500, 480: 1000, 360: 500}
+            for height in [2160, 1440, 1080, 720, 480, 360]:
+                bitrate_map = {2160: 20000, 1440: 10000, 1080: 4500, 720: 2500, 480: 1000, 360: 500}
                 size_str = "Unknown size"
                 if duration:
                     size_str = f"{(bitrate_map[height] * 1000 * duration) / (8 * 1024 * 1024):.1f} MB"
@@ -446,6 +452,7 @@ def background_download(task_id, video_id, url, quality, download_type, is_verti
                 cmd.extend(['--format', 'bestaudio/best'])
         else:
             height_map = {
+                '4320p': 4320,
                 '2160p': 2160,
                 '1440p': 1440,
                 '1080p': 1080,
@@ -466,6 +473,7 @@ def background_download(task_id, video_id, url, quality, download_type, is_verti
             elif height == 144: width = 256
             elif height == 1440: width = 2560
             elif height == 2160: width = 3840
+            elif height == 4320: width = 7680
 
             if is_vertical:
                 # Vertical format logic: match width <= height (std_res) and height <= width (landscape_limit)

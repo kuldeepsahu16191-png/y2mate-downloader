@@ -34,3 +34,7 @@ ffprobe.exe
 # wrangler local files
 .wrangler/
 
+# sensitive cookies and local logs
+cookies.txt
+*.log
+live_site.html
