@@ -44,6 +44,22 @@ elif not os.path.exists(COOKIE_FILE):
     else:
         COOKIE_FILE = None
 
+# Validate cookies file format to prevent yt-dlp crash
+if COOKIE_FILE and os.path.exists(COOKIE_FILE):
+    is_valid_format = False
+    try:
+        with open(COOKIE_FILE, 'r', encoding='utf-8', errors='ignore') as f:
+            first_line = f.readline().strip()
+            # Netscape cookies file should begin with a hash tag comment, usually '# Netscape' or '# HTTP' or similar.
+            if first_line.startswith('# Netscape') or first_line.startswith('# HTTP') or first_line.startswith('#'):
+                is_valid_format = True
+    except Exception as e:
+        print(f"Error validating cookie file: {e}")
+        
+    if not is_valid_format:
+        print(f"WARNING: Cookie file '{COOKIE_FILE}' is not in Netscape cookies format. Disabling cookie config to prevent yt-dlp crash.")
+        COOKIE_FILE = None
+
 # Check if curl-cffi is available for browser impersonation
 HAS_CURL_CFFI = False
 try:
