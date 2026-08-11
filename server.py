@@ -27,7 +27,14 @@ os.makedirs(DOWNLOAD_DIR, exist_ok=True)
 
 # Check for cookies.txt
 COOKIE_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'cookies.txt')
-if not os.path.exists(COOKIE_FILE):
+if os.environ.get('YOUTUBE_COOKIES'):
+    try:
+        with open(COOKIE_FILE, 'w', encoding='utf-8') as f:
+            f.write(os.environ.get('YOUTUBE_COOKIES'))
+        print("Successfully loaded cookies from YOUTUBE_COOKIES environment variable.")
+    except Exception as e:
+        print(f"Error writing cookies.txt from environment variable: {e}")
+elif not os.path.exists(COOKIE_FILE):
     parent_cookie = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'cookies.txt')
     if os.path.exists(parent_cookie):
         COOKIE_FILE = parent_cookie

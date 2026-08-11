@@ -16,7 +16,7 @@ COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy only the Python server script (ignoring Windows binaries like ffmpeg.exe)
-COPY server.py .
+COPY server.py cookies.txt* ./
 
 # Expose port (Render/Railway will map this automatically)
 EXPOSE 5000
