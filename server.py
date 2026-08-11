@@ -673,30 +673,45 @@ def download_file(task_id):
     )
 
 
+@app.route('/', methods=['GET'])
+def index():
+    return jsonify({
+        'status': 'ok',
+        'message': 'Y2mate API Server is running'
+    })
+
+
+# Global cache for yt-dlp version to avoid running subprocess on every health check
+CACHED_YT_VERSION = None
+
 @app.route('/api/health', methods=['GET'])
 def health_check():
+    global CACHED_YT_VERSION
     import shutil
     has_ffmpeg = shutil.which('ffmpeg') is not None
     
-    # Check yt-dlp version
-    yt_version = "unknown"
-    try:
-        version_cmd = ['yt-dlp', '--version']
-        version_res = subprocess.run(version_cmd, capture_output=True, text=True, timeout=10)
-        if version_res.returncode == 0:
-            yt_version = version_res.stdout.strip()
-    except Exception as e:
-        yt_version = f"error: {str(e)}"
+    # Check yt-dlp version (cached)
+    if CACHED_YT_VERSION is None:
+        try:
+            version_cmd = ['yt-dlp', '--version']
+            version_res = subprocess.run(version_cmd, capture_output=True, text=True, timeout=10)
+            if version_res.returncode == 0:
+                CACHED_YT_VERSION = version_res.stdout.strip()
+            else:
+                CACHED_YT_VERSION = "unknown"
+        except Exception as e:
+            CACHED_YT_VERSION = f"error: {str(e)}"
 
     return jsonify({
         'status': 'ok',
         'service': 'y2mate-api',
         'has_ffmpeg': has_ffmpeg,
         'has_curl_cffi': HAS_CURL_CFFI,
-        'yt_dlp_version': yt_version,
+        'yt_dlp_version': CACHED_YT_VERSION,
         'cookie_file': COOKIE_FILE,
         'cookie_file_exists': COOKIE_FILE is not None and os.path.exists(COOKIE_FILE)
     })
+
 
 
 def signal_handler(sig, frame):
