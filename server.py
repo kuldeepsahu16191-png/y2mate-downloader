@@ -34,6 +34,9 @@ if os.environ.get('YOUTUBE_COOKIES'):
         print("Successfully loaded cookies from YOUTUBE_COOKIES environment variable.")
     except Exception as e:
         print(f"Error writing cookies.txt from environment variable: {e}")
+elif os.path.exists('/etc/secrets/cookies.txt'):
+    COOKIE_FILE = '/etc/secrets/cookies.txt'
+    print("Successfully loaded cookies from Render Secret File.")
 elif not os.path.exists(COOKIE_FILE):
     parent_cookie = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'cookies.txt')
     if os.path.exists(parent_cookie):
