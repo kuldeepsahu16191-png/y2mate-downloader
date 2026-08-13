@@ -52,12 +52,16 @@ if COOKIE_FILE and os.path.exists(COOKIE_FILE):
             first_line = f.readline().strip()
             # Netscape cookies file should begin with a hash tag comment, usually '# Netscape' or '# HTTP' or similar.
             if first_line.startswith('# Netscape') or first_line.startswith('# HTTP') or first_line.startswith('#'):
-                is_valid_format = True
+                content = f.read()
+                if 'youtube.com' in content or 'google.com' in content:
+                    is_valid_format = True
+                else:
+                    print("Cookie file exists but does not contain YouTube or Google cookies.")
     except Exception as e:
         print(f"Error validating cookie file: {e}")
         
     if not is_valid_format:
-        print(f"WARNING: Cookie file '{COOKIE_FILE}' is not in Netscape cookies format. Disabling cookie config to prevent yt-dlp crash.")
+        print(f"WARNING: Cookie file '{COOKIE_FILE}' is not in Netscape cookies format or has no YouTube/Google cookies. Disabling cookie config to prevent yt-dlp crash/block.")
         COOKIE_FILE = None
 
 # Check if curl-cffi is available for browser impersonation
@@ -68,20 +72,20 @@ try:
 except ImportError:
     pass
 
-def build_ytdlp_cmd(args):
+def build_ytdlp_cmd(args, use_cookies=True):
     """Build the yt-dlp command with necessary bypass options like impersonation and cookies."""
     cmd = ['yt-dlp']
     if HAS_CURL_CFFI:
         cmd.extend(['--impersonate', 'chrome'])
     
+    # Always use android_vr as the player client. It bypasses bot detection reliably
+    # and returns formats up to 4K, with or without cookies. The default web/tv clients
+    # get blocked with "Sign in to confirm you're not a bot" on datacenter IPs.
+    cmd.extend(['--extractor-args', 'youtube:player_client=android_vr'])
+
     # Check if we have cookies
-    if COOKIE_FILE and os.path.exists(COOKIE_FILE):
+    if use_cookies and COOKIE_FILE and os.path.exists(COOKIE_FILE):
         cmd.extend(['--cookies', COOKIE_FILE])
-        # Web cookies work fine with default player clients (like web), which support up to 4K resolutions.
-    else:
-        # Without cookies, we force the tvhtml5 client.
-        # tvhtml5 is highly effective at bypassing bot detection on datacenter IPs, while returning up to 4K/8K resolutions.
-        cmd.extend(['--extractor-args', 'youtube:player_client=tvhtml5'])
         
     cmd.extend(args)
     return cmd
@@ -155,6 +159,18 @@ def get_video_info():
         ])
 
         result = subprocess.run(cmd, capture_output=True, text=True, timeout=60)
+
+        # Fallback if cookies are active but request failed (common with expired/invalid cookies)
+        if result.returncode != 0 and COOKIE_FILE:
+            print("Video info fetch failed with cookies. Retrying WITHOUT cookies...")
+            fallback_cmd = build_ytdlp_cmd([
+                '--dump-json',
+                '--no-download',
+                '--no-warnings',
+                '--no-check-certificates',
+                target
+            ], use_cookies=False)
+            result = subprocess.run(fallback_cmd, capture_output=True, text=True, timeout=60)
 
         if result.returncode != 0:
             error_msg = result.stderr.strip() if result.stderr else 'Failed to fetch video info'
@@ -343,6 +359,18 @@ def search_videos():
         ])
 
         result = subprocess.run(cmd, capture_output=True, text=True, timeout=30)
+
+        # Fallback if cookies are active but request failed (common with expired/invalid cookies)
+        if result.returncode != 0 and COOKIE_FILE:
+            print("YouTube search failed with cookies. Retrying WITHOUT cookies...")
+            fallback_cmd = build_ytdlp_cmd([
+                '--dump-json',
+                '--flat-playlist',
+                '--no-warnings',
+                '--no-check-certificates',
+                f'ytsearch9:{q}'
+            ], use_cookies=False)
+            result = subprocess.run(fallback_cmd, capture_output=True, text=True, timeout=30)
 
         if result.returncode != 0:
             error_msg = result.stderr.strip() if result.stderr else 'Failed to search YouTube'
@@ -552,12 +580,86 @@ def background_download(task_id, video_id, url, quality, download_type, is_verti
             return
 
         if proc.returncode != 0:
-            error_msg = stderr_rem.strip() if stderr_rem else ""
-            if not error_msg:
-                error_msg = proc.stderr.read().strip() or "Download failed"
-            tasks[task_id]["status"] = "failed"
-            tasks[task_id]["error"] = error_msg
-            return
+            # Fallback if cookies are active but request failed (common with expired/invalid cookies)
+            if COOKIE_FILE:
+                print("Download failed with cookies. Retrying WITHOUT cookies...")
+                tasks[task_id]["status"] = "pending"
+                tasks[task_id]["progress"] = 0
+                
+                # Rebuild cmd without cookies
+                fallback_cmd = build_ytdlp_cmd([
+                    '--no-warnings',
+                    '--no-check-certificates',
+                    '--newline',
+                    '--concurrent-fragments', '5',
+                    '--retries', '10',
+                    '--fragment-retries', '10',
+                    '-o', output_template,
+                ], use_cookies=False)
+                
+                if download_type == 'audio':
+                    if requested_ext == 'm4a':
+                        if has_ffmpeg:
+                            fallback_cmd.extend(['-x', '--audio-format', 'm4a'])
+                        fallback_cmd.extend(['--format', 'bestaudio[ext=m4a]/bestaudio/best'])
+                    else:
+                        if has_ffmpeg:
+                            fallback_cmd.extend(['-x', '--audio-format', 'mp3'])
+                            if 'kbps' in quality:
+                                abr = quality.replace('kbps', '')
+                                fallback_cmd.extend(['--audio-quality', abr])
+                        fallback_cmd.extend(['--format', 'bestaudio/best'])
+                else:
+                    fallback_cmd.extend([
+                        '--format', format_str,
+                        '--merge-output-format', 'mp4',
+                    ])
+                fallback_cmd.append(f'https://www.youtube.com/watch?v={video_id}')
+
+                proc = subprocess.Popen(
+                    fallback_cmd,
+                    stdout=subprocess.PIPE,
+                    stderr=subprocess.PIPE,
+                    text=True,
+                    bufsize=1,
+                    universal_newlines=True
+                )
+                
+                while True:
+                    line = proc.stdout.readline()
+                    if not line:
+                        break
+                    line_str = line.strip()
+                    if not line_str:
+                        continue
+                    if "Merging formats" in line_str or "[Merger]" in line_str:
+                        tasks[task_id]["status"] = "processing"
+                        tasks[task_id]["progress"] = 90
+                    elif "[ExtractAudio]" in line_str or "Destination:" in line_str and download_type == 'audio':
+                        tasks[task_id]["status"] = "processing"
+                        tasks[task_id]["progress"] = 90
+                    match = progress_re.search(line_str)
+                    if match:
+                        tasks[task_id]["progress"] = float(match.group(1))
+                        tasks[task_id]["speed"] = match.group(2)
+                        tasks[task_id]["eta"] = match.group(3)
+                    else:
+                        pct_match = percent_re.search(line_str)
+                        if pct_match:
+                            tasks[task_id]["progress"] = float(pct_match.group(1))
+
+                stdout_rem, stderr_rem = proc.communicate(timeout=3600)
+
+            if proc.returncode != 0:
+                error_msg = stderr_rem.strip() if stderr_rem else ""
+                if not error_msg:
+                    try:
+                        error_msg = proc.stderr.read().strip() or "Download failed"
+                    except:
+                        error_msg = "Download failed"
+                tasks[task_id]["status"] = "failed"
+                tasks[task_id]["error"] = error_msg
+                return
 
         time.sleep(1)
 
@@ -586,6 +688,14 @@ def background_download(task_id, video_id, url, quality, download_type, is_verti
             ])
             try:
                 title_result = subprocess.run(title_cmd, capture_output=True, text=True, timeout=30)
+                if title_result.returncode != 0 and COOKIE_FILE:
+                    fallback_title_cmd = build_ytdlp_cmd([
+                        '--get-title',
+                        '--no-warnings',
+                        '--no-check-certificates',
+                        f'https://www.youtube.com/watch?v={video_id}'
+                    ], use_cookies=False)
+                    title_result = subprocess.run(fallback_title_cmd, capture_output=True, text=True, timeout=30)
                 if title_result.returncode == 0 and title_result.stdout.strip():
                     safe_title = re.sub(r'[<>:"/\\|?*]', '_', title_result.stdout.strip())
                     ext = os.path.splitext(downloaded_file)[1]
