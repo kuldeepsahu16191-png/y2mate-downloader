@@ -16,10 +16,11 @@ COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy only the Python server script (ignoring Windows binaries like ffmpeg.exe)
-COPY server.py cookies.txt* ./
+# Cookies come from the Render Secret File mounted at /etc/secrets/cookies.txt
+COPY server.py ./
 
 # Expose port (Render/Railway will map this automatically)
 EXPOSE 10000
 
 # Launch the server with Gunicorn, dynamically binding to the assigned PORT env variable
-CMD gunicorn --bind 0.0.0.0:$PORT --workers 2 server:app
+CMD gunicorn --bind 0.0.0.0:$PORT --workers 1 --timeout 120 server:app

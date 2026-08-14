@@ -65,17 +65,25 @@ if COOKIE_FILE and os.path.exists(COOKIE_FILE):
         COOKIE_FILE = None
 
 # Check if curl-cffi is available for browser impersonation
+# Imported lazily so worker startup stays fast (avoids Render deploy timeouts on first boot)
 HAS_CURL_CFFI = False
-try:
-    import curl_cffi
-    HAS_CURL_CFFI = True
-except ImportError:
-    pass
+_CURL_CFFI_CHECKED = False
+
+def has_curl_cffi():
+    global HAS_CURL_CFFI, _CURL_CFFI_CHECKED
+    if not _CURL_CFFI_CHECKED:
+        _CURL_CFFI_CHECKED = True
+        try:
+            import curl_cffi
+            HAS_CURL_CFFI = True
+        except ImportError:
+            pass
+    return HAS_CURL_CFFI
 
 def build_ytdlp_cmd(args, use_cookies=True):
     """Build the yt-dlp command with necessary bypass options like impersonation and cookies."""
     cmd = ['yt-dlp']
-    if HAS_CURL_CFFI:
+    if has_curl_cffi():
         cmd.extend(['--impersonate', 'chrome'])
     
     # Always use android_vr as the player client. It bypasses bot detection reliably
@@ -355,7 +363,7 @@ def search_videos():
             '--flat-playlist',
             '--no-warnings',
             '--no-check-certificates',
-            f'ytsearch9:{q}'
+            f'ytsearch12:{q}'
         ])
 
         result = subprocess.run(cmd, capture_output=True, text=True, timeout=30)
@@ -368,7 +376,7 @@ def search_videos():
                 '--flat-playlist',
                 '--no-warnings',
                 '--no-check-certificates',
-                f'ytsearch9:{q}'
+                f'ytsearch12:{q}'
             ], use_cookies=False)
             result = subprocess.run(fallback_cmd, capture_output=True, text=True, timeout=30)
 
@@ -816,7 +824,7 @@ def health_check():
         'status': 'ok',
         'service': 'y2mate-api',
         'has_ffmpeg': has_ffmpeg,
-        'has_curl_cffi': HAS_CURL_CFFI,
+        'has_curl_cffi': has_curl_cffi(),
         'yt_dlp_version': CACHED_YT_VERSION,
         'cookie_file': COOKIE_FILE,
         'cookie_file_exists': COOKIE_FILE is not None and os.path.exists(COOKIE_FILE)
